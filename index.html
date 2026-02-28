@@ -7,76 +7,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #e60000;
-            --dark: #1a1a1a;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .navbar {
-            background: var(--primary);
-        }
-        .hero-news {
-            position: relative;
-            height: 400px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
-            overflow: hidden;
-        }
-        .hero-news img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.7;
-        }
-        .hero-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 2rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-        }
-        .category-tag {
-            background: var(--primary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .news-card {
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        .news-card img {
-            height: 200px;
-            object-fit: cover;
-        }
-        .sidebar-section {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-        }
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 2rem 0;
-        }
+        :root { --primary: #e60000; --dark: #1a1a1a; }
+        body { font-family: 'Segoe UI', sans-serif; }
+        .navbar { background: var(--primary); }
+        .hero-news { position: relative; height: 450px; background: var(--dark); overflow: hidden; }
+        .hero-news img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .hero-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(transparent, rgba(0,0,0,0.95)); }
+        .category-tag { background: var(--primary); color: white; padding: 5px 14px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .news-card { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .news-card img { height: 200px; object-fit: cover; }
+        .sidebar-section { background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        footer { background: var(--dark); color: white; padding: 2rem 0; }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">
-                <i class="fas fa-newspaper"></i> SenzaciiBG
-            </a>
+            <a class="navbar-brand fw-bold" href="index.html"><i class="fas fa-newspaper"></i> SenzaciiBG</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -87,11 +36,8 @@
                     <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('sports')">Спорт</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('business')">Бизнес</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('tech')">Технологии</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('entertainment')">Забавление</a></li>
                 </ul>
-                <a href="admin.html" class="btn btn-light btn-sm">
-                    <i class="fas fa-cog"></i> Admin
-                </a>
+                <a href="admin.html" class="btn btn-light btn-sm"><i class="fas fa-cog"></i> Admin</a>
             </div>
         </div>
     </nav>
@@ -100,52 +46,37 @@
     <section class="hero-news" id="heroNews">
         <img src="https://picsum.photos/1200/600?random=1" alt="Главна новина">
         <div class="hero-content">
-            <span class="category-tag" id="heroCategory">Политика</span>
-            <h1 class="text-white mt-2" id="heroTitle">Зареждане...</h1>
-            <p class="text-light" id="heroExcerpt"></p>
-            <small class="text-light" id="heroDate"></small>
+            <span class="category-tag" id="heroCategory">ПОЛИТИКА</span>
+            <h1 class="text-white mt-2 fw-bold" id="heroTitle">Съветът по сигурността: Няма военна опасност за България</h1>
+            <p class="text-light lead" id="heroExcerpt">Правителството следи ситуацията в Близкия изток.</p>
+            <small class="text-light" id="heroDate">28.02.2026</small>
         </div>
     </section>
 
     <!-- Main Content -->
     <div class="container my-5">
         <div class="row">
-            <!-- News Grid -->
             <div class="col-lg-8">
-                <h3 class="mb-4 border-bottom pb-2">Последни новини</h3>
-                <div class="row" id="newsGrid">
-                    <!-- News will be loaded here -->
-                </div>
+                <h3 class="mb-4 border-bottom pb-2"><i class="fas fa-clock"></i> Последни новини</h3>
+                <div class="row" id="newsGrid"></div>
             </div>
-
-            <!-- Sidebar -->
             <div class="col-lg-4">
                 <div class="sidebar-section">
                     <h5><i class="fas fa-fire text-danger"></i> Най-четени</h5>
                     <div id="popularNews"></div>
                 </div>
-                
                 <div class="sidebar-section">
                     <h5><i class="fas fa-tags"></i> Категории</h5>
                     <div class="d-flex flex-wrap gap-2">
                         <span class="badge bg-secondary" onclick="filterNews('politics')">Политика</span>
-                        <span class="badge bg-secondary" onclick="filterNews('sports')">Спорт</span>
                         <span class="badge bg-secondary" onclick="filterNews('business')">Бизнес</span>
                         <span class="badge bg-secondary" onclick="filterNews('tech')">Технологии</span>
-                        <span class="badge bg-secondary" onclick="filterNews('entertainment')">Забавление</span>
                     </div>
-                </div>
-
-                <div class="sidebar-section">
-                    <h5><i class="fas fa-envelope"></i> Newsletter</h5>
-                    <input type="email" class="form-control mb-2" placeholder="Имейлът ви">
-                    <button class="btn btn-danger w-100">Абонирай се</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="container text-center">
             <p>&copy; 2026 SenzaciiBG. Всички права запазени.</p>
@@ -155,40 +86,29 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initial news data - Nova.bg latest
-        const defaultNews = [
-            { id: 1, title: 'Съветът по сигурността: Няма военна опасност за територията на България', category: 'politics', excerpt: 'Правителството следи ситуацията в Близкия изток. На заседание на Съвета по сигурността беше обсъдена текущата обстановка.', image: 'https://picsum.photos/600/400?random=101', date: '28.02.2026', views: 1250 },
-            { id: 2, title: 'Израел нанесе удари, а САЩ стартираха военна операция срещу Иран', category: 'politics', excerpt: 'Техеран също изстреля ракети по израелска територия. Ескалацията предизвика сериозен отговор.', image: 'https://picsum.photos/600/400?random=102', date: '28.02.2026', views: 980 },
-            { id: 3, title: 'Редки болести – какво е важно да знаем?', category: 'entertainment', excerpt: 'Проф. Ивайло Търнев очерта пробивите в лечението и очакваното разширяване на неонаталния скрининг.', image: 'https://picsum.photos/600/400?random=103', date: '28.02.2026', views: 756 },
-            { id: 4, title: 'Редица авиокомпании анулират полетите си до страни в Близкия изток', category: 'business', excerpt: 'Сред тях е и "България Еър". Всички полети до засегнатите дестинации са отменени.', image: 'https://picsum.photos/600/400?random=104', date: '28.02.2026', views: 542 },
-            { id: 5, title: 'Костадинов и привърженици на "Възраждане" блокираха входа на Министерски съвет', category: 'politics', excerpt: 'Той твърди, че има сведения, че летището в София ще бъде използвано за логистична подкрепа.', image: 'https://picsum.photos/600/400?random=105', date: '28.02.2026', views: 420 },
-            { id: 6, title: 'МВнР формира Кризисен щаб заради ситуацията в Близкия изток', category: 'politics', excerpt: 'От ведомството призовават българите в региона да спазват указанията на местните власти.', image: 'https://picsum.photos/600/400?random=106', date: '28.02.2026', views: 380 },
-            { id: 7, title: 'Реакции на международната общност на ескалацията в Близкия изток', category: 'politics', excerpt: 'Операцията на Израел и на САЩ срещу Иран и иранският отговор породиха сериозен отзук.', image: 'https://picsum.photos/600/400?random=107', date: '28.02.2026', views: 350 },
-            { id: 8, title: 'Как САЩ и Израел нарекоха операциите си срещу Иран', category: 'politics', excerpt: 'Пентагонът и Бенямин Нетаняху обосноваха решението за нанасяне на масирани удари.', image: 'https://picsum.photos/600/400?random=108', date: '28.02.2026', views: 320 },
-            { id: 9, title: 'Москва: Ударите срещу Иран са "опасна авантюра"', category: 'politics', excerpt: 'Руското външно министерство излезе с изявление относно ескалацията в Близкия изток.', image: 'https://picsum.photos/600/400?random=109', date: '28.02.2026', views: 290 },
-            { id: 10, title: 'Какви военни сили на САЩ има в Близкия изток', category: 'tech', excerpt: 'Вижте основните американски военни активи, разположени в региона.', image: 'https://picsum.photos/600/400?random=110', date: '28.02.2026', views: 260 }
+        // News embedded directly in JavaScript
+        const news = [
+            { id: 1, title: 'Съветът по сигурността: Няма военна опасност за територията на България', category: 'politics', excerpt: 'Правителството следи ситуацията в Близкия изток. На заседание на Съвета по сигурността беше обсъдена текущата обстановка.', image: 'https://picsum.photos/800/500?random=101', date: '28.02.2026', views: 1250 },
+            { id: 2, title: 'Израел нанесе удари, а САЩ стартираха военна операция срещу Иран', category: 'politics', excerpt: 'Техеран също изстреля ракети по израелска територия. Ескалацията предизвика сериозен отговор.', image: 'https://picsum.photos/800/500?random=102', date: '28.02.2026', views: 980 },
+            { id: 3, title: 'Редки болести – какво е важно да знаем?', category: 'tech', excerpt: 'Проф. Ивайло Търнев очерта пробивите в лечението и очакваното разширяване на неонаталния скрининг.', image: 'https://picsum.photos/800/500?random=103', date: '28.02.2026', views: 756 },
+            { id: 4, title: 'Редица авиокомпании анулираха полетите си до страни в Близкия изток', category: 'business', excerpt: 'Сред тях е и "България Еър". Всички полети до засегнатите дестинации са отменени.', image: 'https://picsum.photos/800/500?random=104', date: '28.02.2026', views: 542 },
+            { id: 5, title: 'Костадинов и привърженици на "Възраждане" блокираха входа на Министерски съвет', category: 'politics', excerpt: 'Той твърди, че има сведения, че летището в София ще бъде използвано за логистична подкрепа.', image: 'https://picsum.photos/800/500?random=105', date: '28.02.2026', views: 420 },
+            { id: 6, title: 'МВнР формира Кризисен щаб заради ситуацията в Близкия изток', category: 'politics', excerpt: 'От ведомството призовават българите в региона да спазват указанията на местните власти.', image: 'https://picsum.photos/800/500?random=106', date: '28.02.2026', views: 380 },
+            { id: 7, title: 'Реакции на международната общност на ескалацията в Близкия изток', category: 'politics', excerpt: 'Операцията на Израел и САЩ срещу Иран породи сериозен отзвук в цял свят.', image: 'https://picsum.photos/800/500?random=107', date: '28.02.2026', views: 350 },
+            { id: 8, title: 'Как САЩ и Израел нарекоха операциите си срещу Иран', category: 'politics', excerpt: 'Пентагонът и Бенямин Нетаняху обосноваха решението за нанасяне на масирани удари.', image: 'https://picsum.photos/800/500?random=108', date: '28.02.2026', views: 320 },
+            { id: 9, title: 'Москва: Ударите срещу Иран са "опасна авантюра"', category: 'politics', excerpt: 'Руското външно министерство излезе с изявление относно ескалацията в Близкия изток.', image: 'https://picsum.photos/800/500?random=109', date: '28.02.2026', views: 290 }
         ];
 
-        // Load news from localStorage or use default
+        // Load news
         function loadNews() {
-            let news = JSON.parse(localStorage.getItem('senzaciibg_news') || '[]');
-            
-            if (news.length === 0) {
-                // Use default news from Nova.bg
-                news = defaultNews;
-                localStorage.setItem('senzaciibg_news', JSON.stringify(news));
-            }
+            // Hero
+            document.getElementById('heroTitle').textContent = news[0].title;
+            document.getElementById('heroExcerpt').textContent = news[0].excerpt;
+            document.getElementById('heroDate').textContent = news[0].date;
+            document.getElementById('heroCategory').textContent = getCategoryName(news[0].category).toUpperCase();
+            document.querySelector('#heroNews img').src = news[0].image;
 
-            // Hero news
-            if (news[0]) {
-                document.getElementById('heroTitle').textContent = news[0].title;
-                document.getElementById('heroExcerpt').textContent = news[0].excerpt;
-                document.getElementById('heroDate').textContent = news[0].date;
-                document.getElementById('heroCategory').textContent = getCategoryName(news[0].category);
-                document.querySelector('#heroNews img').src = news[0].image;
-            }
-
-            // News grid
+            // Grid
             const grid = document.getElementById('newsGrid');
             grid.innerHTML = news.slice(1).map(n => `
                 <div class="col-md-6 mb-4">
@@ -196,55 +116,49 @@
                         <img src="${n.image}" class="card-img-top" alt="${n.title}">
                         <div class="card-body">
                             <span class="category-tag">${getCategoryName(n.category)}</span>
-                            <h5 class="card-title mt-2">${n.title}</h5>
-                            <p class="card-text text-muted">${n.excerpt}</p>
+                            <h5 class="card-title mt-2 fw-bold">${n.title}</h5>
+                            <p class="card-text text-muted small">${n.excerpt}</p>
                             <small class="text-muted"><i class="far fa-calendar"></i> ${n.date}</small>
                         </div>
                     </div>
                 </div>
             `).join('');
 
-            // Popular news
+            // Popular
             const sorted = [...news].sort((a, b) => b.views - a.views).slice(0, 5);
             document.getElementById('popularNews').innerHTML = sorted.map(n => `
-                <div class="border-bottom py-2 cursor-pointer" onclick="viewNews(${n.id})">
-                    <small class="text-danger">${getCategoryName(n.category)}</small>
-                    <p class="mb-0 small">${n.title}</p>
+                <div class="border-bottom py-2" style="cursor:pointer" onclick="viewNews(${n.id})">
+                    <small class="text-danger fw-bold">${getCategoryName(n.category)}</small>
+                    <p class="mb-0 small fw-medium">${n.title}</p>
                 </div>
             `).join('');
         }
 
         function getCategoryName(cat) {
-            const names = { politics: 'Политика', sports: 'Спорт', business: 'Бизнес', tech: 'Технологии', entertainment: 'Забавление' };
+            const names = { politics: 'Политика', business: 'Бизнес', tech: 'Технологии' };
             return names[cat] || cat;
         }
 
         function filterNews(category) {
-            const news = JSON.parse(localStorage.getItem('senzaciibg_news') || '[]');
             const filtered = news.filter(n => n.category === category);
-            
             const grid = document.getElementById('newsGrid');
-            if (filtered.length === 0) {
-                grid.innerHTML = '<div class="col-12"><p class="text-muted">Няма новини в тази категория</p></div>';
-            } else {
-                grid.innerHTML = filtered.map(n => `
-                    <div class="col-md-6 mb-4">
-                        <div class="card news-card h-100" onclick="viewNews(${n.id})">
-                            <img src="${n.image}" class="card-img-top" alt="${n.title}">
-                            <div class="card-body">
-                                <span class="category-tag">${getCategoryName(n.category)}</span>
-                                <h5 class="card-title mt-2">${n.title}</h5>
-                                <p class="card-text text-muted">${n.excerpt}</p>
-                                <small class="text-muted"><i class="far fa-calendar"></i> ${n.date}</small>
-                            </div>
+            grid.innerHTML = filtered.map(n => `
+                <div class="col-md-6 mb-4">
+                    <div class="card news-card h-100" onclick="viewNews(${n.id})">
+                        <img src="${n.image}" class="card-img-top" alt="${n.title}">
+                        <div class="card-body">
+                            <span class="category-tag">${getCategoryName(n.category)}</span>
+                            <h5 class="card-title mt-2 fw-bold">${n.title}</h5>
+                            <p class="card-text text-muted small">${n.excerpt}</p>
+                            <small class="text-muted"><i class="far fa-calendar"></i> ${n.date}</small>
                         </div>
                     </div>
-                `).join('');
-            }
+                </div>
+            `).join('');
         }
 
         function viewNews(id) {
-            window.location.href = `article.html?id=${id}`;
+            window.location.href = 'article.html?id=' + id;
         }
 
         loadNews();
