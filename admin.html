@@ -167,11 +167,6 @@
                                 <input type="text" class="form-control" id="siteName" value="SenzaciiBG">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Парола за админ панел</label>
-                                <input type="password" class="form-control" id="adminPass" placeholder="Нова парола">
-                                <small class="text-muted">Остави празно за запазване на текущата</small>
-                            </div>
-                            <div class="mb-3">
                                 <label class="form-label">Описание</label>
                                 <textarea class="form-control" id="siteDesc" rows="3">Новини от България и света</textarea>
                             </div>
@@ -300,11 +295,6 @@
         }
 
         function saveSettings() {
-            const newPass = document.getElementById('adminPass').value;
-            if (newPass) {
-                localStorage.setItem('senzaciibg_admin_password', newPass);
-            }
-            
             const settings = {
                 name: document.getElementById('siteName').value,
                 description: document.getElementById('siteDesc').value
