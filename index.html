@@ -155,22 +155,28 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Load news from localStorage
+        // Initial news data - Nova.bg latest
+        const defaultNews = [
+            { id: 1, title: 'Съветът по сигурността: Няма военна опасност за територията на България', category: 'politics', excerpt: 'Правителството следи ситуацията в Близкия изток. На заседание на Съвета по сигурността беше обсъдена текущата обстановка.', image: 'https://picsum.photos/600/400?random=101', date: '28.02.2026', views: 1250 },
+            { id: 2, title: 'Израел нанесе удари, а САЩ стартираха военна операция срещу Иран', category: 'politics', excerpt: 'Техеран също изстреля ракети по израелска територия. Ескалацията предизвика сериозен отговор.', image: 'https://picsum.photos/600/400?random=102', date: '28.02.2026', views: 980 },
+            { id: 3, title: 'Редки болести – какво е важно да знаем?', category: 'entertainment', excerpt: 'Проф. Ивайло Търнев очерта пробивите в лечението и очакваното разширяване на неонаталния скрининг.', image: 'https://picsum.photos/600/400?random=103', date: '28.02.2026', views: 756 },
+            { id: 4, title: 'Редица авиокомпании анулират полетите си до страни в Близкия изток', category: 'business', excerpt: 'Сред тях е и "България Еър". Всички полети до засегнатите дестинации са отменени.', image: 'https://picsum.photos/600/400?random=104', date: '28.02.2026', views: 542 },
+            { id: 5, title: 'Костадинов и привърженици на "Възраждане" блокираха входа на Министерски съвет', category: 'politics', excerpt: 'Той твърди, че има сведения, че летището в София ще бъде използвано за логистична подкрепа.', image: 'https://picsum.photos/600/400?random=105', date: '28.02.2026', views: 420 },
+            { id: 6, title: 'МВнР формира Кризисен щаб заради ситуацията в Близкия изток', category: 'politics', excerpt: 'От ведомството призовават българите в региона да спазват указанията на местните власти.', image: 'https://picsum.photos/600/400?random=106', date: '28.02.2026', views: 380 },
+            { id: 7, title: 'Реакции на международната общност на ескалацията в Близкия изток', category: 'politics', excerpt: 'Операцията на Израел и на САЩ срещу Иран и иранският отговор породиха сериозен отзук.', image: 'https://picsum.photos/600/400?random=107', date: '28.02.2026', views: 350 },
+            { id: 8, title: 'Как САЩ и Израел нарекоха операциите си срещу Иран', category: 'politics', excerpt: 'Пентагонът и Бенямин Нетаняху обосноваха решението за нанасяне на масирани удари.', image: 'https://picsum.photos/600/400?random=108', date: '28.02.2026', views: 320 },
+            { id: 9, title: 'Москва: Ударите срещу Иран са "опасна авантюра"', category: 'politics', excerpt: 'Руското външно министерство излезе с изявление относно ескалацията в Близкия изток.', image: 'https://picsum.photos/600/400?random=109', date: '28.02.2026', views: 290 },
+            { id: 10, title: 'Какви военни сили на САЩ има в Близкия изток', category: 'tech', excerpt: 'Вижте основните американски военни активи, разположени в региона.', image: 'https://picsum.photos/600/400?random=110', date: '28.02.2026', views: 260 }
+        ];
+
+        // Load news from localStorage or use default
         function loadNews() {
-            const news = JSON.parse(localStorage.getItem('senzaciibg_news') || '[]');
+            let news = JSON.parse(localStorage.getItem('senzaciibg_news') || '[]');
             
             if (news.length === 0) {
-                // Demo news if empty
-                const demoNews = [
-                    { id: 1, title: 'България обяви нови мерки за енергийна ефективност', category: 'politics', excerpt: 'Правителството представи нов пакет от мерки за намаляване на енергопотреблението с 30% до 2030 г.', image: 'https://picsum.photos/600/400?random=2', date: '28.02.2026', views: 1250 },
-                    { id: 2, title: 'Левски спечели дербито срещу ЦСКА с 2:1', category: 'sports', excerpt: 'Вълнуващ мач на стадион Васил Левски реши съдбата на двете отбора в класирането.', image: 'https://picsum.photos/600/400?random=3', date: '28.02.2026', views: 980 },
-                    { id: 3, title: 'Tech компанията NVIDIA обяви рекордни приходи', category: 'business', excerpt: 'Приходите на NVIDIA скочиха с 206% благодарение на AI чиповете.', image: 'https://picsum.photos/600/400?random=4', date: '28.02.2026', views: 756 },
-                    { id: 4, title: 'iPhone 18 Pro ще има революционна камера', category: 'tech', excerpt: 'Слуховете сочат, че Apple ще използва 1-инчов сензор в следващия си флагман.', image: 'https://picsum.photos/600/400?random=5', date: '27.02.2026', views: 542 },
-                    { id: 5, title: 'Холивудският съюз обяви край на стачката', category: 'entertainment', excerpt: 'Актьорите и сценаристите постигнаха споразумение с големите студия.', image: 'https://picsum.photos/600/400?random=6', date: '27.02.2026', views: 420 }
-                ];
-                localStorage.setItem('senzaciibg_news', JSON.stringify(demoNews));
-                loadNews();
-                return;
+                // Use default news from Nova.bg
+                news = defaultNews;
+                localStorage.setItem('senzaciibg_news', JSON.stringify(news));
             }
 
             // Hero news
