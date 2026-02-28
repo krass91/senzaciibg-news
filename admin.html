@@ -13,167 +13,137 @@
         .sidebar a:hover, .sidebar a.active { color: white; background: #e60000; }
         .news-table td { vertical-align: middle; }
         .news-img { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; }
-        
-        /* Login Screen */
-        .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .login-container h2 { text-align: center; margin-bottom: 1.5rem; }
-        .login-container .btn { width: 100%; }
-        .error-msg { color: red; font-size: 0.9rem; display: none; }
     </style>
 </head>
 <body>
-    <!-- Login Screen -->
-    <div id="loginScreen">
-        <div class="login-container">
-            <h2><i class="fas fa-lock"></i> Admin Login</h2>
-            <p class="text-muted text-center">Въведи паролата за достъп</p>
-            <input type="password" id="adminPassword" class="form-control mb-3" placeholder="Парола">
-            <button class="btn btn-danger" onclick="checkPassword()">
-                <i class="fas fa-sign-in-alt"></i> Вход
-            </button>
-            <p class="error-msg mt-3" id="errorMsg">Грешна парола!</p>
-        </div>
-    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-0">
+                <div class="p-3 text-white border-bottom">
+                    <h5><i class="fas fa-cog"></i> Admin Panel</h5>
+                </div>
+                <a href="#" class="active" onclick="showSection('dashboard')"><i class="fas fa-home me-2"></i> Начало</a>
+                <a href="#" onclick="showSection('news')"><i class="fas fa-newspaper me-2"></i> Новини</a>
+                <a href="#" onclick="showSection('add')"><i class="fas fa-plus me-2"></i> Добави новина</a>
+                <a href="#" onclick="showSection('settings')"><i class="fas fa-cog me-2"></i> Настройки</a>
+                <a href="index.html"><i class="fas fa-eye me-2"></i> Преглед сайта</a>
+            </div>
 
-    <!-- Admin Panel (hidden until logged in) -->
-    <div id="adminPanel" style="display:none;">
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Sidebar -->
-                <div class="col-md-2 sidebar p-0">
-                    <div class="p-3 text-white border-bottom">
-                        <h5><i class="fas fa-cog"></i> Admin Panel</h5>
+            <!-- Main Content -->
+            <div class="col-md-10 p-4">
+                <!-- Dashboard -->
+                <div id="dashboard">
+                    <h3>📊 Табло</h3>
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="card text-white bg-primary mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Всички новини</h5>
+                                    <h2 id="totalNews">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-white bg-success mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Тази седмица</h5>
+                                    <h2 id="weekNews">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-white bg-warning mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Категории</h5>
+                                    <h2>5</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-white bg-danger mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Общо преглеждания</h5>
+                                    <h2 id="totalViews">0</h2>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <a href="#" class="active" onclick="showSection('dashboard')"><i class="fas fa-home me-2"></i> Начало</a>
-                    <a href="#" onclick="showSection('news')"><i class="fas fa-newspaper me-2"></i> Новини</a>
-                    <a href="#" onclick="showSection('add')"><i class="fas fa-plus me-2"></i> Добави новина</a>
-                    <a href="#" onclick="showSection('settings')"><i class="fas fa-cog me-2"></i> Настройки</a>
-                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i> Изход</a>
-                    <a href="index.html"><i class="fas fa-eye me-2"></i> Преглед сайта</a>
                 </div>
 
-                <!-- Main Content -->
-                <div class="col-md-10 p-4">
-                    <!-- Dashboard -->
-                    <div id="dashboard">
-                        <h3>📊 Табло</h3>
-                        <div class="row mt-4">
-                            <div class="col-md-3">
-                                <div class="card text-white bg-primary mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Всички новини</h5>
-                                        <h2 id="totalNews">0</h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card text-white bg-success mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Тази седмица</h5>
-                                        <h2 id="weekNews">0</h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card text-white bg-warning mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Категории</h5>
-                                        <h2>5</h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card text-white bg-danger mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Общо преглеждания</h5>
-                                        <h2 id="totalViews">0</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- News List -->
+                <div id="news" style="display:none;">
+                    <h3>📰 Всички новини</h3>
+                    <button class="btn btn-danger mb-3" onclick="showSection('add')">
+                        <i class="fas fa-plus"></i> Добави новина
+                    </button>
+                    <table class="table table-striped news-table">
+                        <thead>
+                            <tr>
+                                <th>Снимка</th>
+                                <th>Задание</th>
+                                <th>Категория</th>
+                                <th>Дата</th>
+                                <th>Прегледи</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newsTable"></tbody>
+                    </table>
+                </div>
 
-                    <!-- News List -->
-                    <div id="news" style="display:none;">
-                        <h3>📰 Всички новини</h3>
-                        <button class="btn btn-danger mb-3" onclick="showSection('add')">
-                            <i class="fas fa-plus"></i> Добави новина
+                <!-- Add News -->
+                <div id="add" style="display:none;">
+                    <h3>➕ Добави новина</h3>
+                    <form id="newsForm" class="card p-4 mt-3">
+                        <div class="mb-3">
+                            <label class="form-label">Задание</label>
+                            <input type="text" class="form-control" id="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Категория</label>
+                            <select class="form-select" id="category">
+                                <option value="politics">Политика</option>
+                                <option value="sports">Спорт</option>
+                                <option value="business">Бизнес</option>
+                                <option value="tech">Технологии</option>
+                                <option value="entertainment">Забавление</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Кратко описание</label>
+                            <textarea class="form-control" id="excerpt" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Пълно съдържание</label>
+                            <textarea class="form-control" id="content" rows="8" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">URL на снимка</label>
+                            <input type="url" class="form-control" id="image" placeholder="https://...">
+                        </div>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-save"></i> Публикувай
                         </button>
-                        <table class="table table-striped news-table">
-                            <thead>
-                                <tr>
-                                    <th>Снимка</th>
-                                    <th>Заглавие</th>
-                                    <th>Категория</th>
-                                    <th>Дата</th>
-                                    <th>Прегледи</th>
-                                    <th>Действия</th>
-                                </tr>
-                            </thead>
-                            <tbody id="newsTable"></tbody>
-                        </table>
-                    </div>
+                    </form>
+                </div>
 
-                    <!-- Add News -->
-                    <div id="add" style="display:none;">
-                        <h3>➕ Добави новина</h3>
-                        <form id="newsForm" class="card p-4 mt-3">
-                            <div class="mb-3">
-                                <label class="form-label">Задание</label>
-                                <input type="text" class="form-control" id="title" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Категория</label>
-                                <select class="form-select" id="category">
-                                    <option value="politics">Политика</option>
-                                    <option value="sports">Спорт</option>
-                                    <option value="business">Бизнес</option>
-                                    <option value="tech">Технологии</option>
-                                    <option value="entertainment">Забавление</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Кратко описание</label>
-                                <textarea class="form-control" id="excerpt" rows="2" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Пълно съдържание</label>
-                                <textarea class="form-control" id="content" rows="8" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">URL на снимка</label>
-                                <input type="url" class="form-control" id="image" placeholder="https://...">
-                            </div>
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fas fa-save"></i> Публикувай
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- Settings -->
-                    <div id="settings" style="display:none;">
-                        <h3>⚙️ Настройки</h3>
-                        <div class="card p-4 mt-3">
-                            <h5>Информация за сайта</h5>
-                            <div class="mb-3">
-                                <label class="form-label">Име на сайта</label>
-                                <input type="text" class="form-control" id="siteName" value="SenzaciiBG">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Описание</label>
-                                <textarea class="form-control" id="siteDesc" rows="3">Новини от България и света</textarea>
-                            </div>
-                            <button class="btn btn-primary" onclick="saveSettings()">
-                                <i class="fas fa-save"></i> Запази
-                            </button>
+                <!-- Settings -->
+                <div id="settings" style="display:none;">
+                    <h3>⚙️ Настройки</h3>
+                    <div class="card p-4 mt-3">
+                        <h5>Информация за сайта</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Име на сайта</label>
+                            <input type="text" class="form-control" id="siteName" value="SenzaciiBG">
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Описание</label>
+                            <textarea class="form-control" id="siteDesc" rows="3">Новини от България и света</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveSettings()">
+                            <i class="fas fa-save"></i> Запази
+                        </button>
                     </div>
                 </div>
             </div>
@@ -181,42 +151,6 @@
     </div>
 
     <script>
-        // Default password - CHANGE THIS!
-        const DEFAULT_PASSWORD = 'senzacii2026';
-        
-        // Check if password is set
-        function getPassword() {
-            return localStorage.getItem('senzaciibg_admin_password') || DEFAULT_PASSWORD;
-        }
-
-        function checkPassword() {
-            const input = document.getElementById('adminPassword').value;
-            const correct = getPassword();
-            
-            if (input === correct) {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                localStorage.setItem('senzaciibg_logged_in', 'true');
-                loadNews();
-                updateStats();
-            } else {
-                document.getElementById('errorMsg').style.display = 'block';
-            }
-        }
-
-        // Check if already logged in
-        if (localStorage.getItem('senzaciibg_logged_in') === 'true') {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('adminPanel').style.display = 'block';
-            loadNews();
-            updateStats();
-        }
-
-        function logout() {
-            localStorage.removeItem('senzaciibg_logged_in');
-            location.reload();
-        }
-
         let news = JSON.parse(localStorage.getItem('senzaciibg_news') || '[]');
 
         function showSection(id) {
@@ -233,10 +167,6 @@
             const weekNews = news.filter(n => new Date(n.date) >= weekAgo).length;
             document.getElementById('weekNews').textContent = weekNews;
             document.getElementById('totalViews').textContent = news.reduce((sum, n) => sum + (n.views || 0), 0);
-        }
-
-        function loadNews() {
-            news = JSON.parse(localStorage.getItem('senzaciibg_news') || '[]');
         }
 
         function loadNewsTable() {
@@ -302,6 +232,9 @@
             localStorage.setItem('senzaciibg_settings', JSON.stringify(settings));
             alert('✅ Настройките са запазени!');
         }
+
+        // Load on start
+        updateStats();
     </script>
 </body>
 </html>
