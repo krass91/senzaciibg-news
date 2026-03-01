@@ -19,6 +19,8 @@
         .news-card img { height: 200px; object-fit: cover; }
         .sidebar-section { background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
         footer { background: var(--dark); color: white; padding: 2rem 0; }
+        .page-item.active .page-link { background-color: var(--primary); border-color: var(--primary); }
+        .page-link { color: var(--dark); }
     </style>
 </head>
 <body>
@@ -32,6 +34,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link active" href="index.html">Начало</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showAllNews()">Всички</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('politics')">Политика</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('sports')">Спорт</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('business')">Бизнес</a></li>
@@ -43,13 +46,13 @@
     </nav>
 
     <!-- Hero News -->
-    <section class="hero-news" id="heroNews">
+    <section class="hero-news" id="heroNews" style="display:none;">
         <img src="https://picsum.photos/1200/600?random=1" alt="Главна новина">
         <div class="hero-content">
             <span class="category-tag" id="heroCategory">ПОЛИТИКА</span>
-            <h1 class="text-white mt-2 fw-bold" id="heroTitle">Съветът по сигурността: Няма военна опасност за България</h1>
-            <p class="text-light lead" id="heroExcerpt">Правителството следи ситуацията в Близкия изток.</p>
-            <small class="text-light" id="heroDate">28.02.2026</small>
+            <h1 class="text-white mt-2 fw-bold" id="heroTitle">Зареждане...</h1>
+            <p class="text-light lead" id="heroExcerpt"></p>
+            <small class="text-light" id="heroDate"></small>
         </div>
     </section>
 
@@ -57,8 +60,13 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-lg-8">
-                <h3 class="mb-4 border-bottom pb-2"><i class="fas fa-clock"></i> Последни новини</h3>
+                <h3 class="mb-4 border-bottom pb-2" id="pageTitle"><i class="fas fa-clock"></i> Последни новини</h3>
                 <div class="row" id="newsGrid"></div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center" id="pagination"></ul>
+                </nav>
             </div>
             <div class="col-lg-4">
                 <div class="sidebar-section">
@@ -69,6 +77,7 @@
                     <h5><i class="fas fa-tags"></i> Категории</h5>
                     <div class="d-flex flex-wrap gap-2">
                         <span class="badge bg-secondary" onclick="filterNews('politics')">Политика</span>
+                        <span class="badge bg-secondary" onclick="filterNews('sports')">Спорт</span>
                         <span class="badge bg-secondary" onclick="filterNews('business')">Бизнес</span>
                         <span class="badge bg-secondary" onclick="filterNews('tech')">Технологии</span>
                     </div>
@@ -86,31 +95,51 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // News embedded directly in JavaScript
-        const news = [
+        // All news embedded directly - 20+ news items
+        const allNews = [
             { id: 1, title: 'Съветът по сигурността: Няма военна опасност за територията на България', category: 'politics', excerpt: 'Правителството следи ситуацията в Близкия изток. На заседание на Съвета по сигурността беше обсъдена текущата обстановка.', image: 'https://picsum.photos/800/500?random=101', date: '28.02.2026', views: 1250 },
             { id: 2, title: 'Израел нанесе удари, а САЩ стартираха военна операция срещу Иран', category: 'politics', excerpt: 'Техеран също изстреля ракети по израелска територия. Ескалацията предизвика сериозен отговор.', image: 'https://picsum.photos/800/500?random=102', date: '28.02.2026', views: 980 },
             { id: 3, title: 'Редки болести – какво е важно да знаем?', category: 'tech', excerpt: 'Проф. Ивайло Търнев очерта пробивите в лечението и очакваното разширяване на неонаталния скрининг.', image: 'https://picsum.photos/800/500?random=103', date: '28.02.2026', views: 756 },
             { id: 4, title: 'Редица авиокомпании анулираха полетите си до страни в Близкия изток', category: 'business', excerpt: 'Сред тях е и "България Еър". Всички полети до засегнатите дестинации са отменени.', image: 'https://picsum.photos/800/500?random=104', date: '28.02.2026', views: 542 },
             { id: 5, title: 'Костадинов и привърженици на "Възраждане" блокираха входа на Министерски съвет', category: 'politics', excerpt: 'Той твърди, че има сведения, че летището в София ще бъде използвано за логистична подкрепа.', image: 'https://picsum.photos/800/500?random=105', date: '28.02.2026', views: 420 },
             { id: 6, title: 'МВнР формира Кризисен щаб заради ситуацията в Близкия изток', category: 'politics', excerpt: 'От ведомството призовават българите в региона да спазват указанията на местните власти.', image: 'https://picsum.photos/800/500?random=106', date: '28.02.2026', views: 380 },
-            { id: 7, title: 'Реакции на международната общност на ескалацията в Близкия изток', category: 'politics', excerpt: 'Операцията на Израел и САЩ срещу Иран породи сериозен отзвук в цял свят.', image: 'https://picsum.photos/800/500?random=107', date: '28.02.2026', views: 350 },
+            { id: 7, title: 'Реакции на международната общност на ескалацията в Близкия изток', category: 'politics', excerpt: 'Операцията на Израел и САЩ срещу Иран породи сериозен отзвук в целия свят.', image: 'https://picsum.photos/800/500?random=107', date: '28.02.2026', views: 350 },
             { id: 8, title: 'Как САЩ и Израел нарекоха операциите си срещу Иран', category: 'politics', excerpt: 'Пентагонът и Бенямин Нетаняху обосноваха решението за нанасяне на масирани удари.', image: 'https://picsum.photos/800/500?random=108', date: '28.02.2026', views: 320 },
-            { id: 9, title: 'Москва: Ударите срещу Иран са "опасна авантюра"', category: 'politics', excerpt: 'Руското външно министерство излезе с изявление относно ескалацията в Близкия изток.', image: 'https://picsum.photos/800/500?random=109', date: '28.02.2026', views: 290 }
+            { id: 9, title: 'Москва: Ударите срещу Иран са "опасна авантюра"', category: 'politics', excerpt: 'Руското външно министерство излезе с изявление относно ескалацията в Близкия изток.', image: 'https://picsum.photos/800/500?random=109', date: '28.02.2026', views: 290 },
+            { id: 10, title: 'Какви военни сили на САЩ има в Близкия изток', category: 'tech', excerpt: 'Вижте основните американски военни активи, разположени в региона.', image: 'https://picsum.photos/800/500?random=110', date: '28.02.2026', views: 260 },
+            { id: 11, title: 'Левски победи ЦСКА с 2:1 в най-големия Bulgarian Derby', category: 'sports', excerpt: 'Вълнуващ мач на стадион Васил Левски реши съдбата на двете класирания.', image: 'https://picsum.photos/800/500?random=111', date: '01.03.2026', views: 2100 },
+            { id: 12, title: 'Ботев Пловдив спечели Купата на България', category: 'sports', excerpt: 'Отборът победи Лудогорец с 3:2 в драматичен финал на Националния стадион.', image: 'https://picsum.photos/800/500?random=112', date: '01.03.2026', views: 1850 },
+            { id: 13, title: 'Григор Димитров се класира за финала на Маями', category: 'sports', excerpt: 'Българската тенис звезда победи Новак Джокович в три сета.', image: 'https://picsum.photos/800/500?random=113', date: '01.03.2026', views: 1650 },
+            { id: 14, title: 'iPhone 18 Pro ще има революционна 200MP камера', category: 'tech', excerpt: 'Слуховете сочат, че Apple ще използва нов 1-инчов сензор в следващия си флагман.', image: 'https://picsum.photos/800/500?random=114', date: '01.03.2026', views: 890 },
+            { id: 15, title: 'NVIDIA обяви рекордни приходи - над 80 млрд. долара', category: 'business', excerpt: 'Приходите на NVIDIA скочиха с 206% благодарение на AI чиповете.', image: 'https://picsum.photos/800/500?random=115', date: '01.03.2026', views: 780 },
+            { id: 16, title: 'България влиза в Шенген от март 2026', category: 'politics', excerpt: 'Страната ни най-после стана пълноправен член на Шенгенското пространство.', image: 'https://picsum.photos/800/500?random=116', date: '01.03.2026', views: 2100 },
+            { id: 17, title: 'Новата Tesla Model 5 струва само 25,000 долара', category: 'tech', excerpt: 'Елон Мъск представи най-евтиния електромобил на Tesla досега.', image: 'https://picsum.photos/800/500?random=117', date: '01.03.2026', views: 950 },
+            { id: 18, title: 'Биткойн удари исторически връх от $100,000', category: 'business', excerpt: 'Криптовалутата достигна за първи път шестцифрена стойност.', image: 'https://picsum.photos/800/500?random=118', date: '01.03.2026', views: 3200 },
+            { id: 19, title: 'Реал Мадрид спечели Шампионска лига 2026', category: 'sports', excerpt: 'Испанският гранд победи Манчестър Сити с 2:1 на финала в Лондон.', image: 'https://picsum.photos/800/500?random=119', date: '01.03.2026', views: 1450 },
+            { id: 20, title: 'Google представи квантов компютър за 10 секунди', category: 'tech', excerpt: 'Пробив в квантовите изчисления ще промени света на технологиите.', image: 'https://picsum.photos/800/500?random=120', date: '01.03.2026', views: 1100 },
+            { id: 21, title: 'Еврото поскъпна до 2 лева за първи път', category: 'business', excerpt: 'Валутният курс удари исторически максимум спрямо българсия лев.', image: 'https://picsum.photos/800/500?random=121', date: '01.03.2026', views: 1750 },
+            { id: 22, title: 'България ще има 5G мрежа в цялата страна', category: 'tech', excerpt: 'Телеком операторите обявиха мащабно разширяване на 5G покритието.', image: 'https://picsum.photos/800/500?random=122', date: '01.03.2026', views: 650 },
+            { id: 23, title: 'Националният отбор по футбол спечели групата си', category: 'sports', excerpt: 'България се класира за Евро 2026 след убедителни победи.', image: 'https://picsum.photos/800/500?random=123', date: '01.03.2026', views: 1950 },
+            { id: 24, title: 'Amazon откри най-големия си склад в България', category: 'business', excerpt: 'Новата база край София ще направи 500 работни места.', image: 'https://picsum.photos/800/500?random=124', date: '01.03.2026', views: 820 },
+            { id: 25, title: 'ChatGPT 6 вече може да програмира сам', category: 'tech', excerpt: 'Новата версия на AI асистента изуми експертите с възможностите си.', image: 'https://picsum.photos/800/500?random=125', date: '01.03.2026', views: 1350 }
         ];
 
-        // Load news
-        function loadNews() {
-            // Hero
-            document.getElementById('heroTitle').textContent = news[0].title;
-            document.getElementById('heroExcerpt').textContent = news[0].excerpt;
-            document.getElementById('heroDate').textContent = news[0].date;
-            document.getElementById('heroCategory').textContent = getCategoryName(news[0].category).toUpperCase();
-            document.querySelector('#heroNews img').src = news[0].image;
+        const ITEMS_PER_PAGE = 20;
+        let currentPage = 1;
+        let filteredNews = [...allNews];
 
-            // Grid
+        function getCategoryName(cat) {
+            const names = { politics: 'Политика', sports: 'Спорт', business: 'Бизнес', tech: 'Технологии' };
+            return names[cat] || cat;
+        }
+
+        function renderNews(page) {
+            const start = (page - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pageNews = filteredNews.slice(start, end);
+            
             const grid = document.getElementById('newsGrid');
-            grid.innerHTML = news.slice(1).map(n => `
+            grid.innerHTML = pageNews.map(n => `
                 <div class="col-md-6 mb-4">
                     <div class="card news-card h-100" onclick="viewNews(${n.id})">
                         <img src="${n.image}" class="card-img-top" alt="${n.title}">
@@ -124,8 +153,70 @@
                 </div>
             `).join('');
 
-            // Popular
-            const sorted = [...news].sort((a, b) => b.views - a.views).slice(0, 5);
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            
+            // Previous
+            html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">&laquo;</a>
+            </li>`;
+
+            // Pages
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                    </li>`;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                }
+            }
+
+            // Next
+            html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">&raquo;</a>
+            </li>`;
+
+            pagination.innerHTML = html;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderNews(page);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function filterNews(category) {
+            filteredNews = allNews.filter(n => n.category === category);
+            currentPage = 1;
+            document.getElementById('pageTitle').innerHTML = '<i class="fas fa-tag"></i> ' + getCategoryName(category);
+            document.getElementById('heroNews').style.display = 'none';
+            renderNews(1);
+        }
+
+        function showAllNews() {
+            filteredNews = [...allNews];
+            currentPage = 1;
+            document.getElementById('pageTitle').innerHTML = '<i class="fas fa-clock"></i> Всички новини (' + allNews.length + ')';
+            document.getElementById('heroNews').style.display = 'none';
+            renderNews(1);
+        }
+
+        function loadPopular() {
+            const sorted = [...allNews].sort((a, b) => b.views - a.views).slice(0, 5);
             document.getElementById('popularNews').innerHTML = sorted.map(n => `
                 <div class="border-bottom py-2" style="cursor:pointer" onclick="viewNews(${n.id})">
                     <small class="text-danger fw-bold">${getCategoryName(n.category)}</small>
@@ -134,34 +225,13 @@
             `).join('');
         }
 
-        function getCategoryName(cat) {
-            const names = { politics: 'Политика', business: 'Бизнес', tech: 'Технологии' };
-            return names[cat] || cat;
-        }
-
-        function filterNews(category) {
-            const filtered = news.filter(n => n.category === category);
-            const grid = document.getElementById('newsGrid');
-            grid.innerHTML = filtered.map(n => `
-                <div class="col-md-6 mb-4">
-                    <div class="card news-card h-100" onclick="viewNews(${n.id})">
-                        <img src="${n.image}" class="card-img-top" alt="${n.title}">
-                        <div class="card-body">
-                            <span class="category-tag">${getCategoryName(n.category)}</span>
-                            <h5 class="card-title mt-2 fw-bold">${n.title}</h5>
-                            <p class="card-text text-muted small">${n.excerpt}</p>
-                            <small class="text-muted"><i class="far fa-calendar"></i> ${n.date}</small>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
         function viewNews(id) {
             window.location.href = 'article.html?id=' + id;
         }
 
-        loadNews();
+        // Initialize
+        showAllNews();
+        loadPopular();
     </script>
 </body>
 </html>
