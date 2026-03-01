@@ -24,28 +24,29 @@
                     <h5><i class="fas fa-cog"></i> Admin Panel</h5>
                 </div>
                 <a href="#" class="active" onclick="showSection('news')"><i class="fas fa-newspaper me-2"></i> Новини</a>
+                <a href="#" onclick="showSection('add')"><i class="fas fa-plus me-2"></i> Добави</a>
                 <a href="index.html"><i class="fas fa-eye me-2"></i> Преглед сайта</a>
             </div>
 
             <!-- Main Content -->
             <div class="col-md-10 p-4">
                 <!-- News List -->
-                <div id="news">
+                <div id="newsSection">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h3>📰 Всички новини</h3>
                         <div>
+                            <button class="btn btn-primary me-2" onclick="showSection('add')">
+                                <i class="fas fa-plus"></i> Добави новина
+                            </button>
                             <button class="btn btn-danger me-2" onclick="deleteAllNews()">
                                 <i class="fas fa-trash"></i> Изтрий всички
                             </button>
-                            <button class="btn btn-warning me-2" onclick="resetToDefault()">
+                            <button class="btn btn-warning" onclick="resetToDefault()">
                                 <i class="fas fa-undo"></i> Нулирай
-                            </button>
-                            <button class="btn btn-success" onclick="loadNewsFromSite()">
-                                <i class="fas fa-sync"></i> Зареди
                             </button>
                         </div>
                     </div>
-                    <p class="text-muted" id="newsCount">Зареди новините от бутона горе</p>
+                    <p class="text-muted" id="newsCount">Общо: 25 новини</p>
                     <table class="table table-striped news-table">
                         <thead>
                             <tr>
@@ -53,12 +54,49 @@
                                 <th>Задание</th>
                                 <th>Категория</th>
                                 <th>Дата</th>
-                                <th>Прегледи</th>
                                 <th>Действия</th>
                             </tr>
                         </thead>
                         <tbody id="newsTable"></tbody>
                     </table>
+                </div>
+
+                <!-- Add News -->
+                <div id="addSection" style="display:none;">
+                    <h3>➕ Добави новина</h3>
+                    <form id="addNewsForm" class="card p-4 mt-3">
+                        <div class="mb-3">
+                            <label class="form-label">Задание</label>
+                            <input type="text" class="form-control" id="newTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Категория</label>
+                            <select class="form-select" id="newCategory">
+                                <option value="politics">Политика</option>
+                                <option value="sports">Спорт</option>
+                                <option value="business">Бизнес</option>
+                                <option value="tech">Технологии</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Кратко описание</label>
+                            <textarea class="form-control" id="newExcerpt" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">URL на снимка</label>
+                            <input type="url" class="form-control" id="newImage" placeholder="https://...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Дата</label>
+                            <input type="text" class="form-control" id="newDate" value="01.03.2026">
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Публикувай
+                        </button>
+                        <button type="button" class="btn btn-secondary ms-2" onclick="showSection('news')">
+                            Отмени
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -67,7 +105,7 @@
     <script>
         let news = [];
 
-        // News data embedded (same as index.html)
+        // News data embedded
         const allNews = [
             { id: 1, title: 'Съветът по сигурността: Няма военна опасност за територията на България', category: 'politics', excerpt: 'Правителството следи ситуацията в Близкия изток.', image: 'https://picsum.photos/800/500?random=101', date: '28.02.2026', views: 1250 },
             { id: 2, title: 'Израел нанесе удари, а САЩ стартираха военна операция срещу Иран', category: 'politics', excerpt: 'Техеран също изстреля ракети по израелска територия.', image: 'https://picsum.photos/800/500?random=102', date: '28.02.2026', views: 980 },
@@ -96,25 +134,18 @@
             { id: 25, title: 'ChatGPT 6 вече може да програмира сам', category: 'tech', excerpt: 'Новата версия на AI асистента изуми експертите.', image: 'https://picsum.photos/800/500?random=125', date: '01.03.2026', views: 1350 }
         ];
 
-        function loadNewsFromSite() {
-            // Load from localStorage or use embedded data
-            const stored = localStorage.getItem('senzaciibg_news');
-            if (stored) {
-                news = JSON.parse(stored);
-            } else {
-                news = [...allNews];
-                localStorage.setItem('senzaciibg_news', JSON.stringify(news));
-            }
-            loadNewsTable();
-            alert('✅ Заредени ' + news.length + ' новини!');
+        function showSection(section) {
+            document.getElementById('newsSection').style.display = section === 'news' ? 'block' : 'none';
+            document.getElementById('addSection').style.display = section === 'add' ? 'block' : 'none';
         }
 
         function loadNewsTable() {
+            news = [...allNews];
             const tbody = document.getElementById('newsTable');
             document.getElementById('newsCount').textContent = 'Общо: ' + news.length + ' новини';
             
             if (news.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center">Няма новини</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center">Няма новини</td></tr>';
                 return;
             }
             tbody.innerHTML = news.map(n => `
@@ -123,7 +154,6 @@
                     <td>${n.title.substring(0, 40)}...</td>
                     <td><span class="badge bg-secondary">${getCategoryName(n.category)}</span></td>
                     <td>${n.date}</td>
-                    <td>${n.views || 0}</td>
                     <td>
                         <button class="btn btn-sm btn-danger" onclick="deleteNews(${n.id})">
                             <i class="fas fa-trash"></i>
@@ -141,15 +171,13 @@
         function deleteNews(id) {
             if (confirm('Сигурен ли си, че искаш да изтриеш тази новина?')) {
                 news = news.filter(n => n.id !== id);
-                localStorage.setItem('senzaciibg_news', JSON.stringify(news));
                 loadNewsTable();
             }
         }
 
         function deleteAllNews() {
-            if (confirm('Сигурен ли си, че искаш да изтриеш ВСИЧКИ новини? Това не може да бъде отменено!')) {
+            if (confirm('Сигурен ли си, че искаш да изтриеш ВСИЧКИ новини?')) {
                 news = [];
-                localStorage.setItem('senzaciibg_news', JSON.stringify(news));
                 loadNewsTable();
                 alert('✅ Всички новини са изтрити!');
             }
@@ -158,13 +186,31 @@
         function resetToDefault() {
             if (confirm('Сигурен ли си, че искаш да нулираш новините до началните (25)?')) {
                 news = [...allNews];
-                localStorage.setItem('senzaciibg_news', JSON.stringify(news));
                 loadNewsTable();
                 alert('✅ Нулирано до ' + news.length + ' новини!');
             }
         }
 
-        // Auto-load on start - always use embedded news as default
+        // Add news form
+        document.getElementById('addNewsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newNews = {
+                id: Date.now(),
+                title: document.getElementById('newTitle').value,
+                category: document.getElementById('newCategory').value,
+                excerpt: document.getElementById('newExcerpt').value,
+                image: document.getElementById('newImage').value || 'https://picsum.photos/800/500?random=' + Math.floor(Math.random() * 1000),
+                date: document.getElementById('newDate').value,
+                views: 0
+            };
+            news.unshift(newNews);
+            alert('✅ Новината е добавена!');
+            this.reset();
+            showSection('news');
+            loadNewsTable();
+        });
+
+        // Auto-load on start
         news = [...allNews];
         loadNewsTable();
     </script>
