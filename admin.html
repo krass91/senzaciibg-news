@@ -164,8 +164,9 @@
             }
         }
 
-        // Auto-load on start
-        loadNewsFromSite();
+        // Auto-load on start - always use embedded news as default
+        news = [...allNews];
+        loadNewsTable();
     </script>
 </body>
 </html>
