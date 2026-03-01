@@ -140,7 +140,6 @@
         }
 
         function loadNewsTable() {
-            news = [...allNews];
             const tbody = document.getElementById('newsTable');
             document.getElementById('newsCount').textContent = 'Общо: ' + news.length + ' новини';
             
@@ -172,6 +171,7 @@
             if (confirm('Сигурен ли си, че искаш да изтриеш тази новина?')) {
                 news = news.filter(n => n.id !== id);
                 loadNewsTable();
+                alert('✅ Новината е изтрита!');
             }
         }
 
