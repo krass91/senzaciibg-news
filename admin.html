@@ -37,8 +37,11 @@
                             <button class="btn btn-danger me-2" onclick="deleteAllNews()">
                                 <i class="fas fa-trash"></i> Изтрий всички
                             </button>
+                            <button class="btn btn-warning me-2" onclick="resetToDefault()">
+                                <i class="fas fa-undo"></i> Нулирай
+                            </button>
                             <button class="btn btn-success" onclick="loadNewsFromSite()">
-                                <i class="fas fa-sync"></i> Зареди от сайта
+                                <i class="fas fa-sync"></i> Зареди
                             </button>
                         </div>
                     </div>
@@ -149,6 +152,15 @@
                 localStorage.setItem('senzaciibg_news', JSON.stringify(news));
                 loadNewsTable();
                 alert('✅ Всички новини са изтрити!');
+            }
+        }
+
+        function resetToDefault() {
+            if (confirm('Сигурен ли си, че искаш да нулираш новините до началните (25)?')) {
+                news = [...allNews];
+                localStorage.setItem('senzaciibg_news', JSON.stringify(news));
+                loadNewsTable();
+                alert('✅ Нулирано до ' + news.length + ' новини!');
             }
         }
 

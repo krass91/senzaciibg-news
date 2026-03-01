@@ -231,9 +231,25 @@
             window.location.href = 'article.html?id=' + id;
         }
 
-        // Initialize
-        showAllNews();
-        loadPopular();
+        // Initialize - load from localStorage or use defaults
+        function init() {
+            // Try to load from localStorage first
+            const stored = localStorage.getItem('senzaciibg_news');
+            if (stored) {
+                news = JSON.parse(stored);
+            } else {
+                // Save defaults to localStorage
+                news = [...allNews];
+                localStorage.setItem('senzaciibg_news', JSON.stringify(news));
+            }
+            filteredNews = [...news];
+            document.getElementById('pageTitle').innerHTML = '<i class="fas fa-clock"></i> Всички новини (' + news.length + ')';
+            document.getElementById('heroNews').style.display = 'none';
+            renderNews(1);
+            loadPopular();
+        }
+
+        init();
     </script>
 </body>
 </html>
