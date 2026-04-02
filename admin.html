@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - SenzaciiBG</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #f5f5f5; }
+        .sidebar { min-height: 100vh; background: #1a1a1a; }
+        .sidebar a { color: #aaa; text-decoration: none; padding: 12px 20px; display: block; }
+        .sidebar a:hover, .sidebar a.active { color: white; background: #e60000; }
+        .news-table td { vertical-align: middle; }
+        .news-img { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-0">
+                <div class="p-3 text-white border-bottom">
+                    <h5><i class="fas fa-cog"></i> Admin Panel</h5>
+                </div>
+                <a href="#" class="active" onclick="showSection('news')"><i class="fas fa-newspaper me-2"></i> ╨Э╨╛╨▓╨╕╨╜╨╕</a>
+                <a href="#" onclick="showSection('add')"><i class="fas fa-plus me-2"></i> ╨Ф╨╛╨▒╨░╨▓╨╕</a>
+                <a href="index.html"><i class="fas fa-eye me-2"></i> ╨Я╤А╨╡╨│╨╗╨╡╨┤ ╤Б╨░╨╣╤В╨░</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 p-4">
+                <!-- News List -->
+                <div id="newsSection">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3>ЁЯУ░ ╨Т╤Б╨╕╤З╨║╨╕ ╨╜╨╛╨▓╨╕╨╜╨╕</h3>
+                        <div>
+                            <button class="btn btn-primary me-2" onclick="showSection('add')">
+                                <i class="fas fa-plus"></i> ╨Ф╨╛╨▒╨░╨▓╨╕ ╨╜╨╛╨▓╨╕╨╜╨░
+                            </button>
+                            <button class="btn btn-danger me-2" onclick="deleteAllNews()">
+                                <i class="fas fa-trash"></i> ╨Ш╨╖╤В╤А╨╕╨╣ ╨▓╤Б╨╕╤З╨║╨╕
+                            </button>
+                            <button class="btn btn-warning" onclick="resetToDefault()">
+                                <i class="fas fa-undo"></i> ╨Э╤Г╨╗╨╕╤А╨░╨╣
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-muted" id="newsCount">╨Ю╨▒╤Й╨╛: 25 ╨╜╨╛╨▓╨╕╨╜╨╕</p>
+                    <table class="table table-striped news-table">
+                        <thead>
+                            <tr>
+                                <th>╨б╨╜╨╕╨╝╨║╨░</th>
+                                <th>╨Ч╨░╨┤╨░╨╜╨╕╨╡</th>
+                                <th>╨Ъ╨░╤В╨╡╨│╨╛╤А╨╕╤П</th>
+                                <th>╨Ф╨░╤В╨░</th>
+                                <th>╨Ф╨╡╨╣╤Б╤В╨▓╨╕╤П</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newsTable"></tbody>
+                    </table>
+                </div>
+
+                <!-- Add News -->
+                <div id="addSection" style="display:none;">
+                    <h3>тЮХ ╨Ф╨╛╨▒╨░╨▓╨╕ ╨╜╨╛╨▓╨╕╨╜╨░</h3>
+                    <form id="addNewsForm" class="card p-4 mt-3">
+                        <div class="mb-3">
+                            <label class="form-label">╨Ч╨░╨┤╨░╨╜╨╕╨╡</label>
+                            <input type="text" class="form-control" id="newTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">╨Ъ╨░╤В╨╡╨│╨╛╤А╨╕╤П</label>
+                            <select class="form-select" id="newCategory">
+                                <option value="politics">╨Я╨╛╨╗╨╕╤В╨╕╨║╨░</option>
+                                <option value="sports">╨б╨┐╨╛╤А╤В</option>
+                                <option value="business">╨С╨╕╨╖╨╜╨╡╤Б</option>
+                                <option value="tech">╨в╨╡╤Е╨╜╨╛╨╗╨╛╨│╨╕╨╕</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">╨Ъ╤А╨░╤В╨║╨╛ ╨╛╨┐╨╕╤Б╨░╨╜╨╕╨╡</label>
+                            <textarea class="form-control" id="newExcerpt" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">URL ╨╜╨░ ╤Б╨╜╨╕╨╝╨║╨░</label>
+                            <input type="url" class="form-control" id="newImage" placeholder="https://...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">╨Ф╨░╤В╨░</label>
+                            <input type="text" class="form-control" id="newDate" value="01.03.2026">
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> ╨Я╤Г╨▒╨╗╨╕╨║╤Г╨▓╨░╨╣
+                        </button>
+                        <button type="button" class="btn btn-secondary ms-2" onclick="showSection('news')">
+                            ╨Ю╤В╨╝╨╡╨╜╨╕
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let news = [];
+
+        // News data embedded
+        const allNews = [
+            { id: 1, title: '╨б╤К╨▓╨╡╤В╤К╤В ╨┐╨╛ ╤Б╨╕╨│╤Г╤А╨╜╨╛╤Б╤В╤В╨░: ╨Э╤П╨╝╨░ ╨▓╨╛╨╡╨╜╨╜╨░ ╨╛╨┐╨░╤Б╨╜╨╛╤Б╤В ╨╖╨░ ╤В╨╡╤А╨╕╤В╨╛╤А╨╕╤П╤В╨░ ╨╜╨░ ╨С╤К╨╗╨│╨░╤А╨╕╤П', category: 'politics', excerpt: '╨Я╤А╨░╨▓╨╕╤В╨╡╨╗╤Б╤В╨▓╨╛╤В╨╛ ╤Б╨╗╨╡╨┤╨╕ ╤Б╨╕╤В╤Г╨░╤Ж╨╕╤П╤В╨░ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║.', image: 'https://picsum.photos/800/500?random=101', date: '28.02.2026', views: 1250 },
+            { id: 2, title: '╨Ш╨╖╤А╨░╨╡╨╗ ╨╜╨░╨╜╨╡╤Б╨╡ ╤Г╨┤╨░╤А╨╕, ╨░ ╨б╨Р╨й ╤Б╤В╨░╤А╤В╨╕╤А╨░╤Е╨░ ╨▓╨╛╨╡╨╜╨╜╨░ ╨╛╨┐╨╡╤А╨░╤Ж╨╕╤П ╤Б╤А╨╡╤Й╤Г ╨Ш╤А╨░╨╜', category: 'politics', excerpt: '╨в╨╡╤Е╨╡╤А╨░╨╜ ╤Б╤К╤Й╨╛ ╨╕╨╖╤Б╤В╤А╨╡╨╗╤П ╤А╨░╨║╨╡╤В╨╕ ╨┐╨╛ ╨╕╨╖╤А╨░╨╡╨╗╤Б╨║╨░ ╤В╨╡╤А╨╕╤В╨╛╤А╨╕╤П.', image: 'https://picsum.photos/800/500?random=102', date: '28.02.2026', views: 980 },
+            { id: 3, title: '╨а╨╡╨┤╨║╨╕ ╨▒╨╛╨╗╨╡╤Б╤В╨╕ тАУ ╨║╨░╨║╨▓╨╛ ╨╡ ╨▓╨░╨╢╨╜╨╛ ╨┤╨░ ╨╖╨╜╨░╨╡╨╝?', category: 'tech', excerpt: '╨Я╤А╨╛╤Д. ╨Ш╨▓╨░╨╣╨╗╨╛ ╨в╤К╤А╨╜╨╡╨▓ ╨╛╤З╨╡╤А╤В╨░ ╨┐╤А╨╛╨▒╨╕╨▓╨╕╤В╨╡ ╨▓ ╨╗╨╡╤З╨╡╨╜╨╕╨╡╤В╨╛.', image: 'https://picsum.photos/800/500?random=103', date: '28.02.2026', views: 756 },
+            { id: 4, title: '╨а╨╡╨┤╨╕╤Ж╨░ ╨░╨▓╨╕╨╛╨║╨╛╨╝╨┐╨░╨╜╨╕╨╕ ╨░╨╜╤Г╨╗╨╕╤А╨░╤Е╨░ ╨┐╨╛╨╗╨╡╤В╨╕╤В╨╡ ╤Б╨╕ ╨┤╨╛ ╤Б╤В╤А╨░╨╜╨╕ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║', category: 'business', excerpt: '╨б╤А╨╡╨┤ ╤В╤П╤Е ╨╡ ╨╕ "╨С╤К╨╗╨│╨░╤А╨╕╤П ╨Х╤К╤А".', image: 'https://picsum.photos/800/500?random=104', date: '28.02.2026', views: 542 },
+            { id: 5, title: '╨Ъ╨╛╤Б╤В╨░╨┤╨╕╨╜╨╛╨▓ ╨╕ ╨┐╤А╨╕╨▓╤К╤А╨╢╨╡╨╜╨╕╤Ж╨╕ ╨╜╨░ "╨Т╤К╨╖╤А╨░╨╢╨┤╨░╨╜╨╡" ╨▒╨╗╨╛╨║╨╕╤А╨░╤Е╨░ ╨▓╤Е╨╛╨┤╨░ ╨╜╨░ ╨Ь╨╕╨╜╨╕╤Б╤В╨╡╤А╤Б╨║╨╕ ╤Б╤К╨▓╨╡╤В', category: 'politics', excerpt: '╨в╨╛╨╣ ╤В╨▓╤К╤А╨┤╨╕, ╤З╨╡ ╨╕╨╝╨░ ╤Б╨▓╨╡╨┤╨╡╨╜╨╕╤П ╨╖╨░ ╨╗╨╡╤В╨╕╤Й╨╡╤В╨╛ ╨▓ ╨б╨╛╤Д╨╕╤П.', image: 'https://picsum.photos/800/500?random=105', date: '28.02.2026', views: 420 },
+            { id: 6, title: '╨Ь╨Т╨╜╨а ╤Д╨╛╤А╨╝╨╕╤А╨░ ╨Ъ╤А╨╕╨╖╨╕╤Б╨╡╨╜ ╤Й╨░╨▒ ╨╖╨░╤А╨░╨┤╨╕ ╤Б╨╕╤В╤Г╨░╤Ж╨╕╤П╤В╨░ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║', category: 'politics', excerpt: '╨Ю╤В ╨▓╨╡╨┤╨╛╨╝╤Б╤В╨▓╨╛╤В╨╛ ╨┐╤А╨╕╨╖╨╛╨▓╨░╨▓╨░╤В ╨▒╤К╨╗╨│╨░╤А╨╕╤В╨╡ ╨▓ ╤А╨╡╨│╨╕╨╛╨╜╨░.', image: 'https://picsum.photos/800/500?random=106', date: '28.02.2026', views: 380 },
+            { id: 7, title: '╨а╨╡╨░╨║╤Ж╨╕╨╕ ╨╜╨░ ╨╝╨╡╨╢╨┤╤Г╨╜╨░╤А╨╛╨┤╨╜╨░╤В╨░ ╨╛╨▒╤Й╨╜╨╛╤Б╤В ╨╜╨░ ╨╡╤Б╨║╨░╨╗╨░╤Ж╨╕╤П╤В╨░ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║', category: 'politics', excerpt: '╨Ю╨┐╨╡╤А╨░╤Ж╨╕╤П╤В╨░ ╨╜╨░ ╨Ш╨╖╤А╨░╨╡╨╗ ╨╕ ╨б╨Р╨й ╤Б╤А╨╡╤Й╤Г ╨Ш╤А╨░╨╜.', image: 'https://picsum.photos/800/500?random=107', date: '28.02.2026', views: 350 },
+            { id: 8, title: '╨Ъ╨░╨║ ╨б╨Р╨й ╨╕ ╨Ш╨╖╤А╨░╨╡╨╗ ╨╜╨░╤А╨╡╨║╨╛╤Е╨░ ╨╛╨┐╨╡╤А╨░╤Ж╨╕╨╕╤В╨╡ ╤Б╨╕ ╤Б╤А╨╡╤Й╤Г ╨Ш╤А╨░╨╜', category: 'politics', excerpt: '╨Я╨╡╨╜╤В╨░╨│╨╛╨╜╤К╤В ╨╕ ╨С╨╡╨╜╤П╨╝╨╕╨╜ ╨Э╨╡╤В╨░╨╜╤П╤Е╤Г ╨╛╨▒╨╛╤Б╨╜╨╛╨▓╨░╤Е╨░ ╤А╨╡╤И╨╡╨╜╨╕╨╡╤В╨╛.', image: 'https://picsum.photos/800/500?random=108', date: '28.02.2026', views: 320 },
+            { id: 9, title: '╨Ь╨╛╤Б╨║╨▓╨░: ╨г╨┤╨░╤А╨╕╤В╨╡ ╤Б╤А╨╡╤Й╤Г ╨Ш╤А╨░╨╜ ╤Б╨░ "╨╛╨┐╨░╤Б╨╜╨░ ╨░╨▓╨░╨╜╤В╤О╤А╨░"', category: 'politics', excerpt: '╨а╤Г╤Б╨║╨╛╤В╨╛ ╨▓╤К╨╜╤И╨╜╨╛ ╨╝╨╕╨╜╨╕╤Б╤В╨╡╤А╤Б╤В╨▓╨╛ ╨╕╨╖╨╗╨╡╨╖╨╡ ╤Б ╨╕╨╖╤П╨▓╨╗╨╡╨╜╨╕╨╡.', image: 'https://picsum.photos/800/500?random=109', date: '28.02.2026', views: 290 },
+            { id: 10, title: '╨Ъ╨░╨║╨▓╨╕ ╨▓╨╛╨╡╨╜╨╜╨╕ ╤Б╨╕╨╗╨╕ ╨╜╨░ ╨б╨Р╨й ╨╕╨╝╨░ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║', category: 'tech', excerpt: '╨Т╨╕╨╢╤В╨╡ ╨╛╤Б╨╜╨╛╨▓╨╜╨╕╤В╨╡ ╨░╨╝╨╡╤А╨╕╨║╨░╨╜╤Б╨║╨╕ ╨▓╨╛╨╡╨╜╨╜╨╕ ╨░╨║╤В╨╕╨▓╨╕.', image: 'https://picsum.photos/800/500?random=110', date: '28.02.2026', views: 260 },
+            { id: 11, title: '╨Ы╨╡╨▓╤Б╨║╨╕ ╨┐╨╛╨▒╨╡╨┤╨╕ ╨ж╨б╨Ъ╨Р ╤Б 2:1 ╨▓ ╨╜╨░╨╣-╨│╨╛╨╗╨╡╨╝╨╕╤П Bulgarian Derby', category: 'sports', excerpt: '╨Т╤К╨╗╨╜╤Г╨▓╨░╤Й ╨╝╨░╤З ╨╜╨░ ╤Б╤В╨░╨┤╨╕╨╛╨╜ ╨Т╨░╤Б╨╕╨╗ ╨Ы╨╡╨▓╤Б╨║╨╕.', image: 'https://picsum.photos/800/500?random=111', date: '01.03.2026', views: 2100 },
+            { id: 12, title: '╨С╨╛╤В╨╡╨▓ ╨Я╨╗╨╛╨▓╨┤╨╕╨▓ ╤Б╨┐╨╡╤З╨╡╨╗╨╕ ╨Ъ╤Г╨┐╨░╤В╨░ ╨╜╨░ ╨С╤К╨╗╨│╨░╤А╨╕╤П', category: 'sports', excerpt: '╨Ю╤В╨▒╨╛╤А╤К╤В ╨┐╨╛╨▒╨╡╨┤╨╕ ╨Ы╤Г╨┤╨╛╨│╨╛╤А╨╡╤Ж ╤Б 3:2.', image: 'https://picsum.photos/800/500?random=112', date: '01.03.2026', views: 1850 },
+            { id: 13, title: '╨У╤А╨╕╨│╨╛╤А ╨Ф╨╕╨╝╨╕╤В╤А╨╛╨▓ ╤Б╨╡ ╨║╨╗╨░╤Б╨╕╤А╨░ ╨╖╨░ ╤Д╨╕╨╜╨░╨╗╨░ ╨╜╨░ ╨Ь╨░╤П╨╝╨╕', category: 'sports', excerpt: '╨С╤К╨╗╨│╨░╤А╤Б╨║╨░╤В╨░ ╤В╨╡╨╜╨╕╤Б ╨╖╨▓╨╡╨╖╨┤╨░ ╨┐╨╛╨▒╨╡╨┤╨╕ ╨Э╨╛╨▓╨░╨║ ╨Ф╨╢╨╛╨║╨╛╨▓╨╕╤З.', image: 'https://picsum.photos/800/500?random=113', date: '01.03.2026', views: 1650 },
+            { id: 14, title: 'iPhone 18 Pro ╤Й╨╡ ╨╕╨╝╨░ ╤А╨╡╨▓╨╛╨╗╤О╤Ж╨╕╨╛╨╜╨╜╨░ 200MP ╨║╨░╨╝╨╡╤А╨░', category: 'tech', excerpt: '╨б╨╗╤Г╤Е╨╛╨▓╨╡╤В╨╡ ╤Б╨╛╤З╨░╤В ╨╖╨░ ╨╜╨╛╨▓ 1-╨╕╨╜╤З╨╛╨▓ ╤Б╨╡╨╜╨╖╨╛╤А.', image: 'https://picsum.photos/800/500?random=114', date: '01.03.2026', views: 890 },
+            { id: 15, title: 'NVIDIA ╨╛╨▒╤П╨▓╨╕ ╤А╨╡╨║╨╛╤А╨┤╨╜╨╕ ╨┐╤А╨╕╤Е╨╛╨┤╨╕ - ╨╜╨░╨┤ 80 ╨╝╨╗╤А╨┤. ╨┤╨╛╨╗╨░╤А╨░', category: 'business', excerpt: '╨Я╤А╨╕╤Е╨╛╨┤╨╕╤В╨╡ ╨╜╨░ NVIDIA ╤Б╨║╨╛╤З╨╕╤Е╨░ ╤Б 206%.', image: 'https://picsum.photos/800/500?random=115', date: '01.03.2026', views: 780 },
+            { id: 16, title: '╨С╤К╨╗╨│╨░╤А╨╕╤П ╨▓╨╗╨╕╨╖╨░ ╨▓ ╨и╨╡╨╜╨│╨╡╨╜ ╨╛╤В ╨╝╨░╤А╤В 2026', category: 'politics', excerpt: '╨б╤В╤А╨░╨╜╨░╤В╨░ ╨╜╨╕ ╨╜╨░╨╣-╨┐╨╛╤Б╨╗╨╡ ╤Б╤В╨░╨╜╨░ ╨┐╤К╨╗╨╜╨╛╨┐╤А╨░╨▓╨╡╨╜ ╤З╨╗╨╡╨╜.', image: 'https://picsum.photos/800/500?random=116', date: '01.03.2026', views: 2100 },
+            { id: 17, title: '╨Э╨╛╨▓╨░╤В╨░ Tesla Model 5 ╤Б╤В╤А╤Г╨▓╨░ ╤Б╨░╨╝╨╛ 25,000 ╨┤╨╛╨╗╨░╤А╨░', category: 'tech', excerpt: '╨Х╨╗╨╛╨╜ ╨Ь╤К╤Б╨║ ╨┐╤А╨╡╨┤╤Б╤В╨░╨▓╨╕ ╨╜╨░╨╣-╨╡╨▓╤В╨╕╨╜╨╕╤П ╨╡╨╗╨╡╨║╤В╤А╨╛╨╝╨╛╨▒╨╕╨╗.', image: 'https://picsum.photos/800/500?random=117', date: '01.03.2026', views: 950 },
+            { id: 18, title: '╨С╨╕╤В╨║╨╛╨╣╨╜ ╤Г╨┤╨░╤А╨╕ ╨╕╤Б╤В╨╛╤А╨╕╤З╨╡╤Б╨║╨╕ ╨▓╤А╤К╤Е ╨╛╤В $100,000', category: 'business', excerpt: '╨Ъ╤А╨╕╨┐╤В╨╛╨▓╨░╨╗╤Г╤В╨░╤В╨░ ╨┤╨╛╤Б╤В╨╕╨│╨╜╨░ ╨╖╨░ ╨┐╤К╤А╨▓╨╕ ╨┐╤К╤В ╤И╨╡╤Б╤В╤Ж╨╕╤Д╤А╨╡╨╜╨░ ╤Б╤В╨╛╨╣╨╜╨╛╤Б╤В.', image: 'https://picsum.photos/800/500?random=118', date: '01.03.2026', views: 3200 },
+            { id: 19, title: '╨а╨╡╨░╨╗ ╨Ь╨░╨┤╤А╨╕╨┤ ╤Б╨┐╨╡╤З╨╡╨╗╨╕ ╨и╨░╨╝╨┐╨╕╨╛╨╜╤Б╨║╨░ ╨╗╨╕╨│╨░ 2026', category: 'sports', excerpt: '╨Ш╤Б╨┐╨░╨╜╤Б╨║╨╕╤П╤В ╨│╤А╨░╨╜╨┤ ╨┐╨╛╨▒╨╡╨┤╨╕ ╨Ь╨░╨╜╤З╨╡╤Б╤В╤К╤А ╨б╨╕╤В╨╕ ╤Б 2:1.', image: 'https://picsum.photos/800/500?random=119', date: '01.03.2026', views: 1450 },
+            { id: 20, title: 'Google ╨┐╤А╨╡╨┤╤Б╤В╨░╨▓╨╕ ╨║╨▓╨░╨╜╤В╨╛╨▓ ╨║╨╛╨╝╨┐╤О╤В╤К╤А ╨╖╨░ 10 ╤Б╨╡╨║╤Г╨╜╨┤╨╕', category: 'tech', excerpt: '╨Я╤А╨╛╨▒╨╕╨▓ ╨▓ ╨║╨▓╨░╨╜╤В╨╛╨▓╨╕╤В╨╡ ╨╕╨╖╤З╨╕╤Б╨╗╨╡╨╜╨╕╤П.', image: 'https://picsum.photos/800/500?random=120', date: '01.03.2026', views: 1100 },
+            { id: 21, title: '╨Х╨▓╤А╨╛╤В╨╛ ╨┐╨╛╤Б╨║╤К╨┐╨╜╨░ ╨┤╨╛ 2 ╨╗╨╡╨▓╨░ ╨╖╨░ ╨┐╤К╤А╨▓╨╕ ╨┐╤К╤В', category: 'business', excerpt: '╨Т╨░╨╗╤Г╤В╨╜╨╕╤П╤В ╨║╤Г╤А╤Б ╤Г╨┤╨░╤А╨╕ ╨╕╤Б╤В╨╛╤А╨╕╤З╨╡╤Б╨║╨╕ ╨╝╨░╨║╤Б╨╕╨╝╤Г╨╝.', image: 'https://picsum.photos/800/500?random=121', date: '01.03.2026', views: 1750 },
+            { id: 22, title: '╨С╤К╨╗╨│╨░╤А╨╕╤П ╤Й╨╡ ╨╕╨╝╨░ 5G ╨╝╤А╨╡╨╢╨░ ╨▓ ╤Ж╤П╨╗╨░╤В╨░ ╤Б╤В╤А╨░╨╜╨░', category: 'tech', excerpt: '╨в╨╡╨╗╨╡╨║╨╛╨╝ ╨╛╨┐╨╡╤А╨░╤В╨╛╤А╨╕╤В╨╡ ╨╛╨▒╤П╨▓╨╕╤Е╨░ ╨╝╨░╤Й╨░╨▒╨╜╨╛ ╤А╨░╨╖╤И╨╕╤А╤П╨▓╨░╨╜╨╡.', image: 'https://picsum.photos/800/500?random=122', date: '01.03.2026', views: 650 },
+            { id: 23, title: '╨Э╨░╤Ж╨╕╨╛╨╜╨░╨╗╨╜╨╕╤П╤В ╨╛╤В╨▒╨╛╤А ╨┐╨╛ ╤Д╤Г╤В╨▒╨╛╨╗ ╤Б╨┐╨╡╤З╨╡╨╗╨╕ ╨│╤А╤Г╨┐╨░╤В╨░ ╤Б╨╕', category: 'sports', excerpt: '╨С╤К╨╗╨│╨░╤А╨╕╤П ╤Б╨╡ ╨║╨╗╨░╤Б╨╕╤А╨░ ╨╖╨░ ╨Х╨▓╤А╨╛ 2026.', image: 'https://picsum.photos/800/500?random=123', date: '01.03.2026', views: 1950 },
+            { id: 24, title: 'Amazon ╨╛╤В╨║╤А╨╕ ╨╜╨░╨╣-╨│╨╛╨╗╨╡╨╝╨╕╤П ╤Б╨╕ ╤Б╨║╨╗╨░╨┤ ╨▓ ╨С╤К╨╗╨│╨░╤А╨╕╤П', category: 'business', excerpt: '╨Э╨╛╨▓╨░╤В╨░ ╨▒╨░╨╖╨░ ╨║╤А╨░╨╣ ╨б╨╛╤Д╨╕╤П ╤Й╨╡ ╨╜╨░╨┐╤А╨░╨▓╨╕ 500 ╤А╨░╨▒╨╛╤В╨╜╨╕ ╨╝╨╡╤Б╤В╨░.', image: 'https://picsum.photos/800/500?random=124', date: '01.03.2026', views: 820 },
+            { id: 25, title: 'ChatGPT 6 ╨▓╨╡╤З╨╡ ╨╝╨╛╨╢╨╡ ╨┤╨░ ╨┐╤А╨╛╨│╤А╨░╨╝╨╕╤А╨░ ╤Б╨░╨╝', category: 'tech', excerpt: '╨Э╨╛╨▓╨░╤В╨░ ╨▓╨╡╤А╤Б╨╕╤П ╨╜╨░ AI ╨░╤Б╨╕╤Б╤В╨╡╨╜╤В╨░ ╨╕╨╖╤Г╨╝╨╕ ╨╡╨║╤Б╨┐╨╡╤А╤В╨╕╤В╨╡.', image: 'https://picsum.photos/800/500?random=125', date: '01.03.2026', views: 1350 }
+        ];
+
+        function showSection(section) {
+            document.getElementById('newsSection').style.display = section === 'news' ? 'block' : 'none';
+            document.getElementById('addSection').style.display = section === 'add' ? 'block' : 'none';
+        }
+
+        function loadNewsTable() {
+            const tbody = document.getElementById('newsTable');
+            document.getElementById('newsCount').textContent = '╨Ю╨▒╤Й╨╛: ' + news.length + ' ╨╜╨╛╨▓╨╕╨╜╨╕';
+            
+            if (news.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center">╨Э╤П╨╝╨░ ╨╜╨╛╨▓╨╕╨╜╨╕</td></tr>';
+                return;
+            }
+            tbody.innerHTML = news.map(n => `
+                <tr>
+                    <td><img src="${n.image}" class="news-img" alt=""></td>
+                    <td>${n.title.substring(0, 40)}...</td>
+                    <td><span class="badge bg-secondary">${getCategoryName(n.category)}</span></td>
+                    <td>${n.date}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="deleteNews(${n.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getCategoryName(cat) {
+            const names = { politics: '╨Я╨╛╨╗╨╕╤В╨╕╨║╨░', sports: '╨б╨┐╨╛╤А╤В', business: '╨С╨╕╨╖╨╜╨╡╤Б', tech: '╨в╨╡╤Е╨╜╨╛╨╗╨╛╨│╨╕╨╕' };
+            return names[cat] || cat;
+        }
+
+        function deleteNews(id) {
+            if (confirm('╨б╨╕╨│╤Г╤А╨╡╨╜ ╨╗╨╕ ╤Б╨╕, ╤З╨╡ ╨╕╤Б╨║╨░╤И ╨┤╨░ ╨╕╨╖╤В╤А╨╕╨╡╤И ╤В╨░╨╖╨╕ ╨╜╨╛╨▓╨╕╨╜╨░?')) {
+                news = news.filter(n => n.id !== id);
+                loadNewsTable();
+                alert('тЬЕ ╨Э╨╛╨▓╨╕╨╜╨░╤В╨░ ╨╡ ╨╕╨╖╤В╤А╨╕╤В╨░!');
+            }
+        }
+
+        function deleteAllNews() {
+            if (confirm('╨б╨╕╨│╤Г╤А╨╡╨╜ ╨╗╨╕ ╤Б╨╕, ╤З╨╡ ╨╕╤Б╨║╨░╤И ╨┤╨░ ╨╕╨╖╤В╤А╨╕╨╡╤И ╨Т╨б╨Ш╨з╨Ъ╨Ш ╨╜╨╛╨▓╨╕╨╜╨╕?')) {
+                news = [];
+                loadNewsTable();
+                alert('тЬЕ ╨Т╤Б╨╕╤З╨║╨╕ ╨╜╨╛╨▓╨╕╨╜╨╕ ╤Б╨░ ╨╕╨╖╤В╤А╨╕╤В╨╕!');
+            }
+        }
+
+        function resetToDefault() {
+            if (confirm('╨б╨╕╨│╤Г╤А╨╡╨╜ ╨╗╨╕ ╤Б╨╕, ╤З╨╡ ╨╕╤Б╨║╨░╤И ╨┤╨░ ╨╜╤Г╨╗╨╕╤А╨░╤И ╨╜╨╛╨▓╨╕╨╜╨╕╤В╨╡ ╨┤╨╛ ╨╜╨░╤З╨░╨╗╨╜╨╕╤В╨╡ (25)?')) {
+                news = [...allNews];
+                loadNewsTable();
+                alert('тЬЕ ╨Э╤Г╨╗╨╕╤А╨░╨╜╨╛ ╨┤╨╛ ' + news.length + ' ╨╜╨╛╨▓╨╕╨╜╨╕!');
+            }
+        }
+
+        // Add news form
+        document.getElementById('addNewsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newNews = {
+                id: Date.now(),
+                title: document.getElementById('newTitle').value,
+                category: document.getElementById('newCategory').value,
+                excerpt: document.getElementById('newExcerpt').value,
+                image: document.getElementById('newImage').value || 'https://picsum.photos/800/500?random=' + Math.floor(Math.random() * 1000),
+                date: document.getElementById('newDate').value,
+                views: 0
+            };
+            news.unshift(newNews);
+            alert('тЬЕ ╨Э╨╛╨▓╨╕╨╜╨░╤В╨░ ╨╡ ╨┤╨╛╨▒╨░╨▓╨╡╨╜╨░!');
+            this.reset();
+            showSection('news');
+            loadNewsTable();
+        });
+
+        // Auto-load on start
+        news = [...allNews];
+        loadNewsTable();
+    </script>
+</body>
+</html>
