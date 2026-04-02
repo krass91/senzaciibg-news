@@ -8,7 +8,7 @@ export default function ArticleCard({ article }) {
       <div className="p-5">
         <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 group-hover:text-orange-500 transition">{article.title}</h3>
         <p className="text-gray-400 text-sm mb-4 line-clamp-2">{article.excerpt}</p>
-        <div className="flex items-center justify-between text-xs text-gray-500"><span>{article.date}</span><span>{article.readTime} χεςενε</span></div>
+        <div className="flex items-center justify-between text-xs text-gray-500"><span>{article.date}</span><span>{article.readTime} Ρ‡ΠµΡ‚ΠµΠ½Πµ</span></div>
       </div>
     </article>
   );

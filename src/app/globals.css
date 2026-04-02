@@ -15,7 +15,6 @@ body {
   color: #e5e5e5;
 }
 a { color: inherit; text-decoration: none; }
-.category-badge { @apply inline-block px-3 py-1 text-xs font-semibold rounded-full; }
 .category-ai-tools { background: rgba(249,115,22,0.2); color: #fb923c; }
 .category-ai-news { background: rgba(168,85,247,0.2); color: #a855f7; }
 .category-ai-guides { background: rgba(59,130,246,0.2); color: #3b82f6; }

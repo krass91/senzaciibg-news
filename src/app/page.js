@@ -1,11 +1,11 @@
-import ArticleCard from "../../components/ArticleCard";
-import Sidebar from "../../components/Sidebar";
-import Newsletter from "../../components/Newsletter";
+import ArticleCard from "../components/ArticleCard";
+import Sidebar from "../components/Sidebar";
+import Newsletter from "../components/Newsletter";
 const articles = [
-  { id: "1", title: "GPT-5 ще промени начина, по който работим", excerpt: "Новите възможности на AI асистентите ще автоматизират повече задачи...", category: "AI Новини", categoryClass: "category-ai-news", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800", date: "2026-04-01", readTime: "5 мин" },
-  { id: "2", title: "Как да използвате Claude за бизнес анализ", excerpt: "Практически ръководство за интегриране на AI в работния ви процес...", category: "AI за Бизнес", categoryClass: "category-ai-business", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800", date: "2026-03-30", readTime: "8 мин" },
-  { id: "3", title: "Топ 10 AI инструменти за разработчици", excerpt: "Подборка от най-полезните AI решения за програмисти...", category: "AI Инструменти", categoryClass: "category-ai-tools", image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800", date: "2026-03-28", readTime: "6 мин" },
-  { id: "4", title: "Бъдещето на AI: Прогнози за 2027", excerpt: "Анализ на тенденциите и какво да очакваме от изкуствения интелект...", category: "AI Тенденции", categoryClass: "category-ai-trends", image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800", date: "2026-03-25", readTime: "10 мин" },
+  { id: "1", title: "GPT-5 С‰Рµ РїСЂРѕРјРµРЅРё РЅР°С‡РёРЅР°, РїРѕ РєРѕР№С‚Рѕ СЂР°Р±РѕС‚РёРј", excerpt: "РќРѕРІРёС‚Рµ РІСЉР·РјРѕР¶РЅРѕСЃС‚Рё РЅР° AI Р°СЃРёСЃС‚РµРЅС‚РёС‚Рµ С‰Рµ Р°РІС‚РѕРјР°С‚РёР·РёСЂР°С‚ РїРѕРІРµС‡Рµ Р·Р°РґР°С‡Рё...", category: "AI РќРѕРІРёРЅРё", categoryClass: "category-ai-news", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800", date: "2026-04-01", readTime: "5 РјРёРЅ" },
+  { id: "2", title: "РљР°Рє РґР° РёР·РїРѕР»Р·РІР°С‚Рµ Claude Р·Р° Р±РёР·РЅРµСЃ Р°РЅР°Р»РёР·", excerpt: "РџСЂР°РєС‚РёС‡РµСЃРєРё СЂСЉРєРѕРІРѕРґСЃС‚РІРѕ Р·Р° РёРЅС‚РµРіСЂРёСЂР°РЅРµ РЅР° AI...", category: "AI Р·Р° Р‘РёР·РЅРµСЃ", categoryClass: "category-ai-business", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800", date: "2026-03-30", readTime: "8 РјРёРЅ" },
+  { id: "3", title: "РўРѕРї 10 AI РёРЅСЃС‚СЂСѓРјРµРЅС‚Рё Р·Р° СЂР°Р·СЂР°Р±РѕС‚С‡РёС†Рё", excerpt: "РџРѕРґР±РѕСЂРєР° РѕС‚ РЅР°Р№-РїРѕР»РµР·РЅРёС‚Рµ AI СЂРµС€РµРЅРёСЏ...", category: "AI РРЅСЃС‚СЂСѓРјРµРЅС‚Рё", categoryClass: "category-ai-tools", image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800", date: "2026-03-28", readTime: "6 РјРёРЅ" },
+  { id: "4", title: "Р‘СЉРґРµС‰РµС‚Рѕ РЅР° AI: РџСЂРѕРіРЅРѕР·Рё Р·Р° 2027", excerpt: "РђРЅР°Р»РёР· РЅР° С‚РµРЅРґРµРЅС†РёРёС‚Рµ...", category: "AI РўРµРЅРґРµРЅС†РёРё", categoryClass: "category-ai-trends", image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800", date: "2026-03-25", readTime: "10 РјРёРЅ" },
 ];
 export default function HomePage() {
   return (
@@ -18,38 +18,38 @@ export default function HomePage() {
               <span className="text-xl font-bold text-white">CyberNinjas</span>
             </div>
             <nav className="hidden md:flex items-center gap-8">
-              <a href="#" className="text-orange-500 font-medium">Начало</a>
-              <a href="#" className="text-gray-400 hover:text-white transition">Новини</a>
-              <a href="#" className="text-gray-400 hover:text-white transition">Ръководства</a>
-              <a href="#" className="text-gray-400 hover:text-white transition">Инструменти</a>
-              <a href="#" className="text-gray-400 hover:text-white transition">За нас</a>
+              <a href="#" className="text-orange-500 font-medium">РќР°С‡Р°Р»Рѕ</a>
+              <a href="#" className="text-gray-400 hover:text-white transition">РќРѕРІРёРЅРё</a>
+              <a href="#" className="text-gray-400 hover:text-white transition">Р СЉРєРѕРІРѕРґСЃС‚РІР°</a>
+              <a href="#" className="text-gray-400 hover:text-white transition">РРЅСЃС‚СЂСѓРјРµРЅС‚Рё</a>
+              <a href="#" className="text-gray-400 hover:text-white transition">Р—Р° РЅР°СЃ</a>
             </nav>
-            <a href="/admin" className="text-gray-400 hover:text-orange-500 transition text-sm">Админ</a>
+            <a href="/admin" className="text-gray-400 hover:text-orange-500 transition text-sm">РђРґРјРёРЅ</a>
           </div>
         </div>
       </header>
       <section className="border-b border-[#262626] py-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Изкуствен интелект <span className="text-orange-500">на български</span></h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">Новини, ръководства и AI инструменти — ChatGPT, Claude и Gemini с примери, които можете да приложите веднага.</p>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">РР·РєСѓСЃС‚РІРµРЅ РёРЅС‚РµР»РµРєС‚ <span className="text-orange-500">РЅР° Р±СЉР»РіР°СЂСЃРєРё</span></h1>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">РќРѕРІРёРЅРё, СЂСЉРєРѕРІРѕРґСЃС‚РІР° Рё AI РёРЅСЃС‚СЂСѓРјРµРЅС‚Рё вЂ” ChatGPT, Claude Рё Gemini СЃ РїСЂРёРјРµСЂРё.</p>
           <div className="flex justify-center gap-8 mt-8 text-2xl font-bold text-gray-500">
-            <div><span className="text-orange-500">54</span> статии</div>
-            <div><span className="text-orange-500">5</span> категории</div>
-            <div><span className="text-orange-500">100%</span> безплатно</div>
+            <div><span className="text-orange-500">54</span> СЃС‚Р°С‚РёРё</div>
+            <div><span className="text-orange-500">5</span> РєР°С‚РµРіРѕСЂРёРё</div>
+            <div><span className="text-orange-500">100%</span> Р±РµР·РїР»Р°С‚РЅРѕ</div>
           </div>
         </div>
       </section>
       <main className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2"><span className="w-1 h-6 bg-orange-500 rounded-full"></span>Последни новини</h2>
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2"><span className="w-1 h-6 bg-orange-500 rounded-full"></span>РџРѕСЃР»РµРґРЅРё РЅРѕРІРёРЅРё</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{articles.map((a) => <ArticleCard key={a.id} article={a} />)}</div>
           </div>
           <Sidebar />
         </div>
       </main>
       <Newsletter />
-      <footer className="border-t border-[#262626] py-8"><div className="max-w-7xl mx-auto px-4 text-center text-gray-500"><p>© 2026 CyberNinjas.ai - Всички права запазени</p></div></footer>
+      <footer className="border-t border-[#262626] py-8"><div className="max-w-7xl mx-auto px-4 text-center text-gray-500"><p>В© 2026 CyberNinjas.ai - Р’СЃРёС‡РєРё РїСЂР°РІР° Р·Р°РїР°Р·РµРЅРё</p></div></footer>
     </div>
   );
 }

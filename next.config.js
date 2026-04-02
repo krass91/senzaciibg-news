@@ -7,5 +7,4 @@ const nextConfig = {
     GITHUB_REPO: process.env.GITHUB_REPO || "krass91/senzaciibg-news",
   },
 };
-
 module.exports = nextConfig;

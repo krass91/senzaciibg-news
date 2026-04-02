@@ -1,5 +1,5 @@
 import "./globals.css";
-export const metadata = { title: "CyberNinjas News", description: "AI новини на български" };
+export const metadata = { title: "CyberNinjas News", description: "AI РЅРѕРІРёРЅРё РЅР° Р±СЉР»РіР°СЂСЃРєРё" };
 export default function RootLayout({ children }) {
   return (
     <html lang="bg">
