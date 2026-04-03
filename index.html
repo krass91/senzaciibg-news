@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SenzaciiBG - ╨Э╨╛╨▓╨╕╨╜╨╕</title>
+    <title>SenzaciiBG - Новини</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -24,7 +24,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html"><i class="fas fa-newspaper"></i> SenzaciiBG</a>
@@ -33,55 +32,37 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">╨Э╨░╤З╨░╨╗╨╛</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showAllNews()">╨Т╤Б╨╕╤З╨║╨╕</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('politics')">╨Я╨╛╨╗╨╕╤В╨╕╨║╨░</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('sports')">╨б╨┐╨╛╤А╤В</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('business')">╨С╨╕╨╖╨╜╨╡╤Б</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('tech')">╨в╨╡╤Е╨╜╨╛╨╗╨╛╨│╨╕╨╕</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Начало</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showAllNews()">Всички</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('politics')">Политика</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('sports')">Спорт</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('business')">Бизнес</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="filterNews('tech')">Технологии</a></li>
                 </ul>
-                <a href="admin.html" class="btn btn-light btn-sm" style="display:none;">
-                    <i class="fas fa-cog"></i> Admin
-                </a>
+                <a href="admin.html" class="btn btn-light btn-sm" style="display:none;"><i class="fas fa-cog"></i> Admin</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero News -->
-    <section class="hero-news" id="heroNews" style="display:none;">
-        <img src="https://picsum.photos/1200/600?random=1" alt="╨У╨╗╨░╨▓╨╜╨░ ╨╜╨╛╨▓╨╕╨╜╨░">
-        <div class="hero-content">
-            <span class="category-tag" id="heroCategory">╨Я╨Ю╨Ы╨Ш╨в╨Ш╨Ъ╨Р</span>
-            <h1 class="text-white mt-2 fw-bold" id="heroTitle">╨Ч╨░╤А╨╡╨╢╨┤╨░╨╜╨╡...</h1>
-            <p class="text-light lead" id="heroExcerpt"></p>
-            <small class="text-light" id="heroDate"></small>
-        </div>
-    </section>
-
-    <!-- Main Content -->
     <div class="container my-5">
         <div class="row">
             <div class="col-lg-8">
-                <h3 class="mb-4 border-bottom pb-2" id="pageTitle"><i class="fas fa-clock"></i> ╨Я╨╛╤Б╨╗╨╡╨┤╨╜╨╕ ╨╜╨╛╨▓╨╕╨╜╨╕</h3>
+                <h3 class="mb-4 border-bottom pb-2" id="pageTitle"><i class="fas fa-clock"></i> Последни новини</h3>
                 <div class="row" id="newsGrid"></div>
-                
-                <!-- Pagination -->
-                <nav aria-label="Page navigation" class="mt-4">
-                    <ul class="pagination justify-content-center" id="pagination"></ul>
-                </nav>
+                <nav aria-label="Page navigation" class="mt-4"><ul class="pagination justify-content-center" id="pagination"></ul></nav>
             </div>
             <div class="col-lg-4">
                 <div class="sidebar-section">
-                    <h5><i class="fas fa-fire text-danger"></i> ╨Э╨░╨╣-╤З╨╡╤В╨╡╨╜╨╕</h5>
+                    <h5><i class="fas fa-fire text-danger"></i> Най-четени</h5>
                     <div id="popularNews"></div>
                 </div>
                 <div class="sidebar-section">
-                    <h5><i class="fas fa-tags"></i> ╨Ъ╨░╤В╨╡╨│╨╛╤А╨╕╨╕</h5>
+                    <h5><i class="fas fa-tags"></i> Категории</h5>
                     <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-secondary" onclick="filterNews('politics')">╨Я╨╛╨╗╨╕╤В╨╕╨║╨░</span>
-                        <span class="badge bg-secondary" onclick="filterNews('sports')">╨б╨┐╨╛╤А╤В</span>
-                        <span class="badge bg-secondary" onclick="filterNews('business')">╨С╨╕╨╖╨╜╨╡╤Б</span>
-                        <span class="badge bg-secondary" onclick="filterNews('tech')">╨в╨╡╤Е╨╜╨╛╨╗╨╛╨│╨╕╨╕</span>
+                        <span class="badge bg-secondary" onclick="filterNews('politics')">Политика</span>
+                        <span class="badge bg-secondary" onclick="filterNews('sports')">Спорт</span>
+                        <span class="badge bg-secondary" onclick="filterNews('business')">Бизнес</span>
+                        <span class="badge bg-secondary" onclick="filterNews('tech')">Технологии</span>
                     </div>
                 </div>
             </div>
@@ -90,40 +71,24 @@
 
     <footer>
         <div class="container text-center">
-            <p>&copy; 2026 SenzaciiBG. ╨Т╤Б╨╕╤З╨║╨╕ ╨┐╤А╨░╨▓╨░ ╨╖╨░╨┐╨░╨╖╨╡╨╜╨╕.</p>
-            <p><small>╨б╨░╨╣╤В╤К╤В ╨╡ ╤Б╤К╨╖╨┤╨░╨┤╨╡╨╜ ╤Б OpenClaw + Codex</small></p>
+            <p>© 2026 SenzaciiBG. Всички права запазени.</p>
+            <p><small>Сайтът е създаден с OpenClaw + Codex</small></p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // All news embedded directly - 20+ news items
         const allNews = [
-            { id: 1, title: '╨б╤К╨▓╨╡╤В╤К╤В ╨┐╨╛ ╤Б╨╕╨│╤Г╤А╨╜╨╛╤Б╤В╤В╨░: ╨Э╤П╨╝╨░ ╨▓╨╛╨╡╨╜╨╜╨░ ╨╛╨┐╨░╤Б╨╜╨╛╤Б╤В ╨╖╨░ ╤В╨╡╤А╨╕╤В╨╛╤А╨╕╤П╤В╨░ ╨╜╨░ ╨С╤К╨╗╨│╨░╤А╨╕╤П', category: 'politics', excerpt: '╨Я╤А╨░╨▓╨╕╤В╨╡╨╗╤Б╤В╨▓╨╛╤В╨╛ ╤Б╨╗╨╡╨┤╨╕ ╤Б╨╕╤В╤Г╨░╤Ж╨╕╤П╤В╨░ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║. ╨Э╨░ ╨╖╨░╤Б╨╡╨┤╨░╨╜╨╕╨╡ ╨╜╨░ ╨б╤К╨▓╨╡╤В╨░ ╨┐╨╛ ╤Б╨╕╨│╤Г╤А╨╜╨╛╤Б╤В╤В╨░ ╨▒╨╡╤И╨╡ ╨╛╨▒╤Б╤К╨┤╨╡╨╜╨░ ╤В╨╡╨║╤Г╤Й╨░╤В╨░ ╨╛╨▒╤Б╤В╨░╨╜╨╛╨▓╨║╨░.', image: 'https://picsum.photos/800/500?random=101', date: '28.02.2026', views: 1250 },
-            { id: 2, title: '╨Ш╨╖╤А╨░╨╡╨╗ ╨╜╨░╨╜╨╡╤Б╨╡ ╤Г╨┤╨░╤А╨╕, ╨░ ╨б╨Р╨й ╤Б╤В╨░╤А╤В╨╕╤А╨░╤Е╨░ ╨▓╨╛╨╡╨╜╨╜╨░ ╨╛╨┐╨╡╤А╨░╤Ж╨╕╤П ╤Б╤А╨╡╤Й╤Г ╨Ш╤А╨░╨╜', category: 'politics', excerpt: '╨в╨╡╤Е╨╡╤А╨░╨╜ ╤Б╤К╤Й╨╛ ╨╕╨╖╤Б╤В╤А╨╡╨╗╤П ╤А╨░╨║╨╡╤В╨╕ ╨┐╨╛ ╨╕╨╖╤А╨░╨╡╨╗╤Б╨║╨░ ╤В╨╡╤А╨╕╤В╨╛╤А╨╕╤П. ╨Х╤Б╨║╨░╨╗╨░╤Ж╨╕╤П╤В╨░ ╨┐╤А╨╡╨┤╨╕╨╖╨▓╨╕╨║╨░ ╤Б╨╡╤А╨╕╨╛╨╖╨╡╨╜ ╨╛╤В╨│╨╛╨▓╨╛╤А.', image: 'https://picsum.photos/800/500?random=102', date: '28.02.2026', views: 980 },
-            { id: 3, title: '╨а╨╡╨┤╨║╨╕ ╨▒╨╛╨╗╨╡╤Б╤В╨╕ тАУ ╨║╨░╨║╨▓╨╛ ╨╡ ╨▓╨░╨╢╨╜╨╛ ╨┤╨░ ╨╖╨╜╨░╨╡╨╝?', category: 'tech', excerpt: '╨Я╤А╨╛╤Д. ╨Ш╨▓╨░╨╣╨╗╨╛ ╨в╤К╤А╨╜╨╡╨▓ ╨╛╤З╨╡╤А╤В╨░ ╨┐╤А╨╛╨▒╨╕╨▓╨╕╤В╨╡ ╨▓ ╨╗╨╡╤З╨╡╨╜╨╕╨╡╤В╨╛ ╨╕ ╨╛╤З╨░╨║╨▓╨░╨╜╨╛╤В╨╛ ╤А╨░╨╖╤И╨╕╤А╤П╨▓╨░╨╜╨╡ ╨╜╨░ ╨╜╨╡╨╛╨╜╨░╤В╨░╨╗╨╜╨╕╤П ╤Б╨║╤А╨╕╨╜╨╕╨╜╨│.', image: 'https://picsum.photos/800/500?random=103', date: '28.02.2026', views: 756 },
-            { id: 4, title: '╨а╨╡╨┤╨╕╤Ж╨░ ╨░╨▓╨╕╨╛╨║╨╛╨╝╨┐╨░╨╜╨╕╨╕ ╨░╨╜╤Г╨╗╨╕╤А╨░╤Е╨░ ╨┐╨╛╨╗╨╡╤В╨╕╤В╨╡ ╤Б╨╕ ╨┤╨╛ ╤Б╤В╤А╨░╨╜╨╕ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║', category: 'business', excerpt: '╨б╤А╨╡╨┤ ╤В╤П╤Е ╨╡ ╨╕ "╨С╤К╨╗╨│╨░╤А╨╕╤П ╨Х╤К╤А". ╨Т╤Б╨╕╤З╨║╨╕ ╨┐╨╛╨╗╨╡╤В╨╕ ╨┤╨╛ ╨╖╨░╤Б╨╡╨│╨╜╨░╤В╨╕╤В╨╡ ╨┤╨╡╤Б╤В╨╕╨╜╨░╤Ж╨╕╨╕ ╤Б╨░ ╨╛╤В╨╝╨╡╨╜╨╡╨╜╨╕.', image: 'https://picsum.photos/800/500?random=104', date: '28.02.2026', views: 542 },
-            { id: 5, title: '╨Ъ╨╛╤Б╤В╨░╨┤╨╕╨╜╨╛╨▓ ╨╕ ╨┐╤А╨╕╨▓╤К╤А╨╢╨╡╨╜╨╕╤Ж╨╕ ╨╜╨░ "╨Т╤К╨╖╤А╨░╨╢╨┤╨░╨╜╨╡" ╨▒╨╗╨╛╨║╨╕╤А╨░╤Е╨░ ╨▓╤Е╨╛╨┤╨░ ╨╜╨░ ╨Ь╨╕╨╜╨╕╤Б╤В╨╡╤А╤Б╨║╨╕ ╤Б╤К╨▓╨╡╤В', category: 'politics', excerpt: '╨в╨╛╨╣ ╤В╨▓╤К╤А╨┤╨╕, ╤З╨╡ ╨╕╨╝╨░ ╤Б╨▓╨╡╨┤╨╡╨╜╨╕╤П, ╤З╨╡ ╨╗╨╡╤В╨╕╤Й╨╡╤В╨╛ ╨▓ ╨б╨╛╤Д╨╕╤П ╤Й╨╡ ╨▒╤К╨┤╨╡ ╨╕╨╖╨┐╨╛╨╗╨╖╨▓╨░╨╜╨╛ ╨╖╨░ ╨╗╨╛╨│╨╕╤Б╤В╨╕╤З╨╜╨░ ╨┐╨╛╨┤╨║╤А╨╡╨┐╨░.', image: 'https://picsum.photos/800/500?random=105', date: '28.02.2026', views: 420 },
-            { id: 6, title: '╨Ь╨Т╨╜╨а ╤Д╨╛╤А╨╝╨╕╤А╨░ ╨Ъ╤А╨╕╨╖╨╕╤Б╨╡╨╜ ╤Й╨░╨▒ ╨╖╨░╤А╨░╨┤╨╕ ╤Б╨╕╤В╤Г╨░╤Ж╨╕╤П╤В╨░ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║', category: 'politics', excerpt: '╨Ю╤В ╨▓╨╡╨┤╨╛╨╝╤Б╤В╨▓╨╛╤В╨╛ ╨┐╤А╨╕╨╖╨╛╨▓╨░╨▓╨░╤В ╨▒╤К╨╗╨│╨░╤А╨╕╤В╨╡ ╨▓ ╤А╨╡╨│╨╕╨╛╨╜╨░ ╨┤╨░ ╤Б╨┐╨░╨╖╨▓╨░╤В ╤Г╨║╨░╨╖╨░╨╜╨╕╤П╤В╨░ ╨╜╨░ ╨╝╨╡╤Б╤В╨╜╨╕╤В╨╡ ╨▓╨╗╨░╤Б╤В╨╕.', image: 'https://picsum.photos/800/500?random=106', date: '28.02.2026', views: 380 },
-            { id: 7, title: '╨а╨╡╨░╨║╤Ж╨╕╨╕ ╨╜╨░ ╨╝╨╡╨╢╨┤╤Г╨╜╨░╤А╨╛╨┤╨╜╨░╤В╨░ ╨╛╨▒╤Й╨╜╨╛╤Б╤В ╨╜╨░ ╨╡╤Б╨║╨░╨╗╨░╤Ж╨╕╤П╤В╨░ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║', category: 'politics', excerpt: '╨Ю╨┐╨╡╤А╨░╤Ж╨╕╤П╤В╨░ ╨╜╨░ ╨Ш╨╖╤А╨░╨╡╨╗ ╨╕ ╨б╨Р╨й ╤Б╤А╨╡╤Й╤Г ╨Ш╤А╨░╨╜ ╨┐╨╛╤А╨╛╨┤╨╕ ╤Б╨╡╤А╨╕╨╛╨╖╨╡╨╜ ╨╛╤В╨╖╨▓╤Г╨║ ╨▓ ╤Ж╨╡╨╗╨╕╤П ╤Б╨▓╤П╤В.', image: 'https://picsum.photos/800/500?random=107', date: '28.02.2026', views: 350 },
-            { id: 8, title: '╨Ъ╨░╨║ ╨б╨Р╨й ╨╕ ╨Ш╨╖╤А╨░╨╡╨╗ ╨╜╨░╤А╨╡╨║╨╛╤Е╨░ ╨╛╨┐╨╡╤А╨░╤Ж╨╕╨╕╤В╨╡ ╤Б╨╕ ╤Б╤А╨╡╤Й╤Г ╨Ш╤А╨░╨╜', category: 'politics', excerpt: '╨Я╨╡╨╜╤В╨░╨│╨╛╨╜╤К╤В ╨╕ ╨С╨╡╨╜╤П╨╝╨╕╨╜ ╨Э╨╡╤В╨░╨╜╤П╤Е╤Г ╨╛╨▒╨╛╤Б╨╜╨╛╨▓╨░╤Е╨░ ╤А╨╡╤И╨╡╨╜╨╕╨╡╤В╨╛ ╨╖╨░ ╨╜╨░╨╜╨░╤Б╤П╨╜╨╡ ╨╜╨░ ╨╝╨░╤Б╨╕╤А╨░╨╜╨╕ ╤Г╨┤╨░╤А╨╕.', image: 'https://picsum.photos/800/500?random=108', date: '28.02.2026', views: 320 },
-            { id: 9, title: '╨Ь╨╛╤Б╨║╨▓╨░: ╨г╨┤╨░╤А╨╕╤В╨╡ ╤Б╤А╨╡╤Й╤Г ╨Ш╤А╨░╨╜ ╤Б╨░ "╨╛╨┐╨░╤Б╨╜╨░ ╨░╨▓╨░╨╜╤В╤О╤А╨░"', category: 'politics', excerpt: '╨а╤Г╤Б╨║╨╛╤В╨╛ ╨▓╤К╨╜╤И╨╜╨╛ ╨╝╨╕╨╜╨╕╤Б╤В╨╡╤А╤Б╤В╨▓╨╛ ╨╕╨╖╨╗╨╡╨╖╨╡ ╤Б ╨╕╨╖╤П╨▓╨╗╨╡╨╜╨╕╨╡ ╨╛╤В╨╜╨╛╤Б╨╜╨╛ ╨╡╤Б╨║╨░╨╗╨░╤Ж╨╕╤П╤В╨░ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║.', image: 'https://picsum.photos/800/500?random=109', date: '28.02.2026', views: 290 },
-            { id: 10, title: '╨Ъ╨░╨║╨▓╨╕ ╨▓╨╛╨╡╨╜╨╜╨╕ ╤Б╨╕╨╗╨╕ ╨╜╨░ ╨б╨Р╨й ╨╕╨╝╨░ ╨▓ ╨С╨╗╨╕╨╖╨║╨╕╤П ╨╕╨╖╤В╨╛╨║', category: 'tech', excerpt: '╨Т╨╕╨╢╤В╨╡ ╨╛╤Б╨╜╨╛╨▓╨╜╨╕╤В╨╡ ╨░╨╝╨╡╤А╨╕╨║╨░╨╜╤Б╨║╨╕ ╨▓╨╛╨╡╨╜╨╜╨╕ ╨░╨║╤В╨╕╨▓╨╕, ╤А╨░╨╖╨┐╨╛╨╗╨╛╨╢╨╡╨╜╨╕ ╨▓ ╤А╨╡╨│╨╕╨╛╨╜╨░.', image: 'https://picsum.photos/800/500?random=110', date: '28.02.2026', views: 260 },
-            { id: 11, title: '╨Ы╨╡╨▓╤Б╨║╨╕ ╨┐╨╛╨▒╨╡╨┤╨╕ ╨ж╨б╨Ъ╨Р ╤Б 2:1 ╨▓ ╨╜╨░╨╣-╨│╨╛╨╗╨╡╨╝╨╕╤П Bulgarian Derby', category: 'sports', excerpt: '╨Т╤К╨╗╨╜╤Г╨▓╨░╤Й ╨╝╨░╤З ╨╜╨░ ╤Б╤В╨░╨┤╨╕╨╛╨╜ ╨Т╨░╤Б╨╕╨╗ ╨Ы╨╡╨▓╤Б╨║╨╕ ╤А╨╡╤И╨╕ ╤Б╤К╨┤╨▒╨░╤В╨░ ╨╜╨░ ╨┤╨▓╨╡╤В╨╡ ╨║╨╗╨░╤Б╨╕╤А╨░╨╜╨╕╤П.', image: 'https://picsum.photos/800/500?random=111', date: '01.03.2026', views: 2100 },
-            { id: 12, title: '╨С╨╛╤В╨╡╨▓ ╨Я╨╗╨╛╨▓╨┤╨╕╨▓ ╤Б╨┐╨╡╤З╨╡╨╗╨╕ ╨Ъ╤Г╨┐╨░╤В╨░ ╨╜╨░ ╨С╤К╨╗╨│╨░╤А╨╕╤П', category: 'sports', excerpt: '╨Ю╤В╨▒╨╛╤А╤К╤В ╨┐╨╛╨▒╨╡╨┤╨╕ ╨Ы╤Г╨┤╨╛╨│╨╛╤А╨╡╤Ж ╤Б 3:2 ╨▓ ╨┤╤А╨░╨╝╨░╤В╨╕╤З╨╡╨╜ ╤Д╨╕╨╜╨░╨╗ ╨╜╨░ ╨Э╨░╤Ж╨╕╨╛╨╜╨░╨╗╨╜╨╕╤П ╤Б╤В╨░╨┤╨╕╨╛╨╜.', image: 'https://picsum.photos/800/500?random=112', date: '01.03.2026', views: 1850 },
-            { id: 13, title: '╨У╤А╨╕╨│╨╛╤А ╨Ф╨╕╨╝╨╕╤В╤А╨╛╨▓ ╤Б╨╡ ╨║╨╗╨░╤Б╨╕╤А╨░ ╨╖╨░ ╤Д╨╕╨╜╨░╨╗╨░ ╨╜╨░ ╨Ь╨░╤П╨╝╨╕', category: 'sports', excerpt: '╨С╤К╨╗╨│╨░╤А╤Б╨║╨░╤В╨░ ╤В╨╡╨╜╨╕╤Б ╨╖╨▓╨╡╨╖╨┤╨░ ╨┐╨╛╨▒╨╡╨┤╨╕ ╨Э╨╛╨▓╨░╨║ ╨Ф╨╢╨╛╨║╨╛╨▓╨╕╤З ╨▓ ╤В╤А╨╕ ╤Б╨╡╤В╨░.', image: 'https://picsum.photos/800/500?random=113', date: '01.03.2026', views: 1650 },
-            { id: 14, title: 'iPhone 18 Pro ╤Й╨╡ ╨╕╨╝╨░ ╤А╨╡╨▓╨╛╨╗╤О╤Ж╨╕╨╛╨╜╨╜╨░ 200MP ╨║╨░╨╝╨╡╤А╨░', category: 'tech', excerpt: '╨б╨╗╤Г╤Е╨╛╨▓╨╡╤В╨╡ ╤Б╨╛╤З╨░╤В, ╤З╨╡ Apple ╤Й╨╡ ╨╕╨╖╨┐╨╛╨╗╨╖╨▓╨░ ╨╜╨╛╨▓ 1-╨╕╨╜╤З╨╛╨▓ ╤Б╨╡╨╜╨╖╨╛╤А ╨▓ ╤Б╨╗╨╡╨┤╨▓╨░╤Й╨╕╤П ╤Б╨╕ ╤Д╨╗╨░╨│╨╝╨░╨╜.', image: 'https://picsum.photos/800/500?random=114', date: '01.03.2026', views: 890 },
-            { id: 15, title: 'NVIDIA ╨╛╨▒╤П╨▓╨╕ ╤А╨╡╨║╨╛╤А╨┤╨╜╨╕ ╨┐╤А╨╕╤Е╨╛╨┤╨╕ - ╨╜╨░╨┤ 80 ╨╝╨╗╤А╨┤. ╨┤╨╛╨╗╨░╤А╨░', category: 'business', excerpt: '╨Я╤А╨╕╤Е╨╛╨┤╨╕╤В╨╡ ╨╜╨░ NVIDIA ╤Б╨║╨╛╤З╨╕╤Е╨░ ╤Б 206% ╨▒╨╗╨░╨│╨╛╨┤╨░╤А╨╡╨╜╨╕╨╡ ╨╜╨░ AI ╤З╨╕╨┐╨╛╨▓╨╡╤В╨╡.', image: 'https://picsum.photos/800/500?random=115', date: '01.03.2026', views: 780 },
-            { id: 16, title: '╨С╤К╨╗╨│╨░╤А╨╕╤П ╨▓╨╗╨╕╨╖╨░ ╨▓ ╨и╨╡╨╜╨│╨╡╨╜ ╨╛╤В ╨╝╨░╤А╤В 2026', category: 'politics', excerpt: '╨б╤В╤А╨░╨╜╨░╤В╨░ ╨╜╨╕ ╨╜╨░╨╣-╨┐╨╛╤Б╨╗╨╡ ╤Б╤В╨░╨╜╨░ ╨┐╤К╨╗╨╜╨╛╨┐╤А╨░╨▓╨╡╨╜ ╤З╨╗╨╡╨╜ ╨╜╨░ ╨и╨╡╨╜╨│╨╡╨╜╤Б╨║╨╛╤В╨╛ ╨┐╤А╨╛╤Б╤В╤А╨░╨╜╤Б╤В╨▓╨╛.', image: 'https://picsum.photos/800/500?random=116', date: '01.03.2026', views: 2100 },
-            { id: 17, title: '╨Э╨╛╨▓╨░╤В╨░ Tesla Model 5 ╤Б╤В╤А╤Г╨▓╨░ ╤Б╨░╨╝╨╛ 25,000 ╨┤╨╛╨╗╨░╤А╨░', category: 'tech', excerpt: '╨Х╨╗╨╛╨╜ ╨Ь╤К╤Б╨║ ╨┐╤А╨╡╨┤╤Б╤В╨░╨▓╨╕ ╨╜╨░╨╣-╨╡╨▓╤В╨╕╨╜╨╕╤П ╨╡╨╗╨╡╨║╤В╤А╨╛╨╝╨╛╨▒╨╕╨╗ ╨╜╨░ Tesla ╨┤╨╛╤Б╨╡╨│╨░.', image: 'https://picsum.photos/800/500?random=117', date: '01.03.2026', views: 950 },
-            { id: 18, title: '╨С╨╕╤В╨║╨╛╨╣╨╜ ╤Г╨┤╨░╤А╨╕ ╨╕╤Б╤В╨╛╤А╨╕╤З╨╡╤Б╨║╨╕ ╨▓╤А╤К╤Е ╨╛╤В $100,000', category: 'business', excerpt: '╨Ъ╤А╨╕╨┐╤В╨╛╨▓╨░╨╗╤Г╤В╨░╤В╨░ ╨┤╨╛╤Б╤В╨╕╨│╨╜╨░ ╨╖╨░ ╨┐╤К╤А╨▓╨╕ ╨┐╤К╤В ╤И╨╡╤Б╤В╤Ж╨╕╤Д╤А╨╡╨╜╨░ ╤Б╤В╨╛╨╣╨╜╨╛╤Б╤В.', image: 'https://picsum.photos/800/500?random=118', date: '01.03.2026', views: 3200 },
-            { id: 19, title: '╨а╨╡╨░╨╗ ╨Ь╨░╨┤╤А╨╕╨┤ ╤Б╨┐╨╡╤З╨╡╨╗╨╕ ╨и╨░╨╝╨┐╨╕╨╛╨╜╤Б╨║╨░ ╨╗╨╕╨│╨░ 2026', category: 'sports', excerpt: '╨Ш╤Б╨┐╨░╨╜╤Б╨║╨╕╤П╤В ╨│╤А╨░╨╜╨┤ ╨┐╨╛╨▒╨╡╨┤╨╕ ╨Ь╨░╨╜╤З╨╡╤Б╤В╤К╤А ╨б╨╕╤В╨╕ ╤Б 2:1 ╨╜╨░ ╤Д╨╕╨╜╨░╨╗╨░ ╨▓ ╨Ы╨╛╨╜╨┤╨╛╨╜.', image: 'https://picsum.photos/800/500?random=119', date: '01.03.2026', views: 1450 },
-            { id: 20, title: 'Google ╨┐╤А╨╡╨┤╤Б╤В╨░╨▓╨╕ ╨║╨▓╨░╨╜╤В╨╛╨▓ ╨║╨╛╨╝╨┐╤О╤В╤К╤А ╨╖╨░ 10 ╤Б╨╡╨║╤Г╨╜╨┤╨╕', category: 'tech', excerpt: '╨Я╤А╨╛╨▒╨╕╨▓ ╨▓ ╨║╨▓╨░╨╜╤В╨╛╨▓╨╕╤В╨╡ ╨╕╨╖╤З╨╕╤Б╨╗╨╡╨╜╨╕╤П ╤Й╨╡ ╨┐╤А╨╛╨╝╨╡╨╜╨╕ ╤Б╨▓╨╡╤В╨░ ╨╜╨░ ╤В╨╡╤Е╨╜╨╛╨╗╨╛╨│╨╕╨╕╤В╨╡.', image: 'https://picsum.photos/800/500?random=120', date: '01.03.2026', views: 1100 },
-            { id: 21, title: '╨Х╨▓╤А╨╛╤В╨╛ ╨┐╨╛╤Б╨║╤К╨┐╨╜╨░ ╨┤╨╛ 2 ╨╗╨╡╨▓╨░ ╨╖╨░ ╨┐╤К╤А╨▓╨╕ ╨┐╤К╤В', category: 'business', excerpt: '╨Т╨░╨╗╤Г╤В╨╜╨╕╤П╤В ╨║╤Г╤А╤Б ╤Г╨┤╨░╤А╨╕ ╨╕╤Б╤В╨╛╤А╨╕╤З╨╡╤Б╨║╨╕ ╨╝╨░╨║╤Б╨╕╨╝╤Г╨╝ ╤Б╨┐╤А╤П╨╝╨╛ ╨▒╤К╨╗╨│╨░╤А╤Б╨╕╤П ╨╗╨╡╨▓.', image: 'https://picsum.photos/800/500?random=121', date: '01.03.2026', views: 1750 },
-            { id: 22, title: '╨С╤К╨╗╨│╨░╤А╨╕╤П ╤Й╨╡ ╨╕╨╝╨░ 5G ╨╝╤А╨╡╨╢╨░ ╨▓ ╤Ж╤П╨╗╨░╤В╨░ ╤Б╤В╤А╨░╨╜╨░', category: 'tech', excerpt: '╨в╨╡╨╗╨╡╨║╨╛╨╝ ╨╛╨┐╨╡╤А╨░╤В╨╛╤А╨╕╤В╨╡ ╨╛╨▒╤П╨▓╨╕╤Е╨░ ╨╝╨░╤Й╨░╨▒╨╜╨╛ ╤А╨░╨╖╤И╨╕╤А╤П╨▓╨░╨╜╨╡ ╨╜╨░ 5G ╨┐╨╛╨║╤А╨╕╤В╨╕╨╡╤В╨╛.', image: 'https://picsum.photos/800/500?random=122', date: '01.03.2026', views: 650 },
-            { id: 23, title: '╨Э╨░╤Ж╨╕╨╛╨╜╨░╨╗╨╜╨╕╤П╤В ╨╛╤В╨▒╨╛╤А ╨┐╨╛ ╤Д╤Г╤В╨▒╨╛╨╗ ╤Б╨┐╨╡╤З╨╡╨╗╨╕ ╨│╤А╤Г╨┐╨░╤В╨░ ╤Б╨╕', category: 'sports', excerpt: '╨С╤К╨╗╨│╨░╤А╨╕╤П ╤Б╨╡ ╨║╨╗╨░╤Б╨╕╤А╨░ ╨╖╨░ ╨Х╨▓╤А╨╛ 2026 ╤Б╨╗╨╡╨┤ ╤Г╨▒╨╡╨┤╨╕╤В╨╡╨╗╨╜╨╕ ╨┐╨╛╨▒╨╡╨┤╨╕.', image: 'https://picsum.photos/800/500?random=123', date: '01.03.2026', views: 1950 },
-            { id: 24, title: 'Amazon ╨╛╤В╨║╤А╨╕ ╨╜╨░╨╣-╨│╨╛╨╗╨╡╨╝╨╕╤П ╤Б╨╕ ╤Б╨║╨╗╨░╨┤ ╨▓ ╨С╤К╨╗╨│╨░╤А╨╕╤П', category: 'business', excerpt: '╨Э╨╛╨▓╨░╤В╨░ ╨▒╨░╨╖╨░ ╨║╤А╨░╨╣ ╨б╨╛╤Д╨╕╤П ╤Й╨╡ ╨╜╨░╨┐╤А╨░╨▓╨╕ 500 ╤А╨░╨▒╨╛╤В╨╜╨╕ ╨╝╨╡╤Б╤В╨░.', image: 'https://picsum.photos/800/500?random=124', date: '01.03.2026', views: 820 },
-            { id: 25, title: 'ChatGPT 6 ╨▓╨╡╤З╨╡ ╨╝╨╛╨╢╨╡ ╨┤╨░ ╨┐╤А╨╛╨│╤А╨░╨╝╨╕╤А╨░ ╤Б╨░╨╝', category: 'tech', excerpt: '╨Э╨╛╨▓╨░╤В╨░ ╨▓╨╡╤А╤Б╨╕╤П ╨╜╨░ AI ╨░╤Б╨╕╤Б╤В╨╡╨╜╤В╨░ ╨╕╨╖╤Г╨╝╨╕ ╨╡╨║╤Б╨┐╨╡╤А╤В╨╕╤В╨╡ ╤Б ╨▓╤К╨╖╨╝╨╛╨╢╨╜╨╛╤Б╤В╨╕╤В╨╡ ╤Б╨╕.', image: 'https://picsum.photos/800/500?random=125', date: '01.03.2026', views: 1350 }
+            { id: 1, title: 'Андрей Янкулов: Подготвяме предложение за дисциплинарно производство срещу Русинова', category: 'politics', excerpt: 'Правосъдният министър обяви в ефир на предаването "Твоят ден", че се подготвя предложение за дисциплинарно производство.', image: 'https://picsum.photos/800/500?random=201', date: '03.04.2026', views: 1850 },
+            { id: 2, title: 'Хиновски: Повишението на парното е абсурд, "Топлофикация София" е във фалит', category: 'business', excerpt: 'Адекватният процент за повишение на топлинната енергия заради цената на газа е не повече от 7-8 процента, подчерта експертът.', image: 'https://picsum.photos/800/500?random=202', date: '03.04.2026', views: 1420 },
+            { id: 3, title: 'Морето изхвърли крило на боен дрон на плаж в Бургаско', category: 'politics', excerpt: 'Крайбрежната охрана не е открила детонатор или взривно устройство на плажа край Бургас.', image: 'https://picsum.photos/800/500?random=203', date: '03.04.2026', views: 2340 },
+            { id: 4, title: 'Пътнически влак дерайлира в Старозагорско (СНИМКИ)', category: 'politics', excerpt: 'В композицията е имало 11 пътници, инцидентът е станал рано тази сутрин.', image: 'https://picsum.photos/800/500?random=204', date: '03.04.2026', views: 1680 },
+            { id: 5, title: 'София отбелязва 147 години като столица с богата празнична програма', category: 'politics', excerpt: 'Тазгодишната програма включва изложби, концерти, творчески инициативи и тематични пешеходни турове из столицата.', image: 'https://picsum.photos/800/500?random=205', date: '03.04.2026', views: 980 },
+            { id: 6, title: 'Людмила Елкова: Дефицитът расте бързо и няма изгледи да спре', category: 'business', excerpt: '„Разходите нарастват по-бързо от икономиката и създават риск за бюджета", подчерта доц. Красен Станчев.', image: 'https://picsum.photos/800/500?random=206', date: '03.04.2026', views: 1150 },
+            { id: 7, title: 'Язовир „Александър Стамболийски" прелива след поройните дъждове', category: 'politics', excerpt: 'Нивото на язовир „Йовковци" също се е покачило значително след обилните валежи.', image: 'https://picsum.photos/800/500?random=207', date: '03.04.2026', views: 890 },
+            { id: 8, title: 'Критичен риск от лавини в планините', category: 'tech', excerpt: 'СКИорите и туристите да не излизат извън пистите, предупреждават специалистите от Планинската спасителна служба.', image: 'https://picsum.photos/800/500?random=208', date: '03.04.2026', views: 720 },
+            { id: 9, title: 'Ботев Пловдив обяви новия си треньор след победата за Купата', category: 'sports', excerpt: '„Ботев" Пловдив обяви кой ще води отбора през новия сезон след историческата победа.', image: 'https://picsum.photos/800/500?random=209', date: '03.04.2026', views: 1560 },
+            { id: 10, title: 'Григор Димитров с нова победа на Мастърс в Маями', category: 'sports', excerpt: 'Българският тенисист продължава впечатляващата си форма с убедителна победа на полуфинала.', image: 'https://picsum.photos/800/500?random=210', date: '03.04.2026', views: 2100 }
         ];
 
         const ITEMS_PER_PAGE = 20;
@@ -131,7 +96,7 @@
         let filteredNews = [...allNews];
 
         function getCategoryName(cat) {
-            const names = { politics: '╨Я╨╛╨╗╨╕╤В╨╕╨║╨░', sports: '╨б╨┐╨╛╤А╤В', business: '╨С╨╕╨╖╨╜╨╡╤Б', tech: '╨в╨╡╤Е╨╜╨╛╨╗╨╛╨│╨╕╨╕' };
+            const names = { politics: 'Политика', sports: 'Спорт', business: 'Бизнес', tech: 'Технологии' };
             return names[cat] || cat;
         }
 
@@ -139,7 +104,6 @@
             const start = (page - 1) * ITEMS_PER_PAGE;
             const end = start + ITEMS_PER_PAGE;
             const pageNews = filteredNews.slice(start, end);
-            
             const grid = document.getElementById('newsGrid');
             grid.innerHTML = pageNews.map(n => `
                 <div class="col-md-6 mb-4">
@@ -154,42 +118,23 @@
                     </div>
                 </div>
             `).join('');
-
             renderPagination();
         }
 
         function renderPagination() {
             const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
             const pagination = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
-            }
-
+            if (totalPages <= 1) { pagination.innerHTML = ''; return; }
             let html = '';
-            
-            // Previous
-            html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">&laquo;</a>
-            </li>`;
-
-            // Pages
+            html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">&laquo;</a></li>`;
             for (let i = 1; i <= totalPages; i++) {
                 if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
-                    html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
-                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
-                    </li>`;
+                    html += `<li class="page-item ${i === currentPage ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
                 } else if (i === currentPage - 2 || i === currentPage + 2) {
                     html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
                 }
             }
-
-            // Next
-            html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">&raquo;</a>
-            </li>`;
-
+            html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">&raquo;</a></li>`;
             pagination.innerHTML = html;
         }
 
@@ -205,15 +150,13 @@
             filteredNews = allNews.filter(n => n.category === category);
             currentPage = 1;
             document.getElementById('pageTitle').innerHTML = '<i class="fas fa-tag"></i> ' + getCategoryName(category);
-            document.getElementById('heroNews').style.display = 'none';
             renderNews(1);
         }
 
         function showAllNews() {
             filteredNews = [...allNews];
             currentPage = 1;
-            document.getElementById('pageTitle').innerHTML = '<i class="fas fa-clock"></i> ╨Т╤Б╨╕╤З╨║╨╕ ╨╜╨╛╨▓╨╕╨╜╨╕ (' + allNews.length + ')';
-            document.getElementById('heroNews').style.display = 'none';
+            document.getElementById('pageTitle').innerHTML = '<i class="fas fa-clock"></i> Всички новини (' + allNews.length + ')';
             renderNews(1);
         }
 
@@ -231,20 +174,9 @@
             window.location.href = 'article.html?id=' + id;
         }
 
-        // Initialize - load from localStorage or use defaults
         function init() {
-            // Try to load from localStorage first
-            const stored = localStorage.getItem('senzaciibg_news');
-            if (stored) {
-                news = JSON.parse(stored);
-            } else {
-                // Save defaults to localStorage
-                news = [...allNews];
-                localStorage.setItem('senzaciibg_news', JSON.stringify(news));
-            }
-            filteredNews = [...news];
-            document.getElementById('pageTitle').innerHTML = '<i class="fas fa-clock"></i> ╨Т╤Б╨╕╤З╨║╨╕ ╨╜╨╛╨▓╨╕╨╜╨╕ (' + news.length + ')';
-            document.getElementById('heroNews').style.display = 'none';
+            filteredNews = [...allNews];
+            document.getElementById('pageTitle').innerHTML = '<i class="fas fa-clock"></i> Всички новини (' + allNews.length + ')';
             renderNews(1);
             loadPopular();
         }
